@@ -1,4 +1,4 @@
-package com.moonayoung.greenlife.challenge;
+package com.moonayoung.greenlife;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

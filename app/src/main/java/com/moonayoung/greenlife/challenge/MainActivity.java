@@ -4,9 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.moonayoung.greenlife.FragmentFeed;
+import com.moonayoung.greenlife.FragmentSetting;
 import com.moonayoung.greenlife.intro.IntroActivity;
 import com.moonayoung.greenlife.intro.LoadingActivity;
 import com.moonayoung.greenlife.R;
