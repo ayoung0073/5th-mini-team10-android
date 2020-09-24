@@ -71,5 +71,4 @@ public class IntroActivity extends AppCompatActivity {
     public void setFinish() { // 메서드 호출되면 액티비티 끝냄
         finish();
     }
-
 }

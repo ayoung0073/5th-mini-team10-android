@@ -20,3 +20,4 @@ public class IntroFragment extends Fragment {
         return rootView;
     }
 }
+

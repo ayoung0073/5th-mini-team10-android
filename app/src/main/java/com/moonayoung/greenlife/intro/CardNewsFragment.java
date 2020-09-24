@@ -1,3 +1,4 @@
+
 package com.moonayoung.greenlife.intro;
 
 import android.os.Bundle;
@@ -11,6 +12,9 @@ import androidx.fragment.app.Fragment;
 
 import com.moonayoung.greenlife.R;
 
+//import com.moonayoung.greenlife.R;
+
+
 public class CardNewsFragment extends Fragment {
 
     @Nullable
@@ -20,3 +24,4 @@ public class CardNewsFragment extends Fragment {
         return rootView;
     }
 }
+

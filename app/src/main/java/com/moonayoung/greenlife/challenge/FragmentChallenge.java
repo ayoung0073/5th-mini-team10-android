@@ -1,9 +1,11 @@
 package com.moonayoung.greenlife.challenge;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.moonayoung.greenlife.CameraActivity;
 import com.moonayoung.greenlife.R;
 
 public class FragmentChallenge extends Fragment {
@@ -26,10 +29,21 @@ public class FragmentChallenge extends Fragment {
         challengeListView = (RecyclerView)rootView.findViewById(R.id.challengListView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false); //linearlayout으로 리싸이클러뷰 설정
         challengeListView.setLayoutManager(layoutManager);
-        ChallengeList challengeList = new ChallengeList();
+        //ChallengeList challengeList = new ChallengeList(); // ChallengeData로 바꿈
+        ChallengeData data = new ChallengeData();
         adapter = new ChallengeAdapter();
-//        adapter.setItems(challengeList.getChallengeLists()); // 데이터 저장되어 있음 Title, content, 세부 챌린지 배열
+        adapter.setItems(data.challengeLists);
+        //adapter.setItems(challengeList.getChallengeLists()); // 데이터 저장되어 있음 Title, content, 세부 챌린지 배열
         challengeListView.setAdapter(adapter); // 어댑터에 설정 -> 리싸이클러뷰에 챌린지 목록 보임
+
+        Button joinBT = rootView.findViewById(R.id.joinBT);
+        joinBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(),CameraActivity.class);
+                getActivity().startActivityForResult(intent, 101);
+            }
+        });
 
         adapter.setOnItemClickListener(new onChallengeListClickListener() {
             @Override
