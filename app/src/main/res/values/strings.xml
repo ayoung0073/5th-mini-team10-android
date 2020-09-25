@@ -1,9 +1,27 @@
 <resources>
     <string name="app_name">GreenLife</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="card_news">세계는 지금 환경 오염과 전쟁 중입니다.
+    <string name="card_news">세계는 지금 환경 오염과 전쟁 중입니다.\n
 과도한 개발과 산업화로 환경이 계속 파괴되고 있습니다.
 이상 이후, 미세먼지 등 환경오염은 더는 묵인할 수 없는 경지까지 와버렸죠. 유엔 환경안전연구소에 따르면 2050년까지 기후 변화에 따른 자연재해로 생기는 기후난민이 10억 명에 이를 것으로 예상됩니다. 이제는 우리들이 바뀔 때입니다.
 </string>
+    <string name="news">
+        세계는 지금 환경 오염과 전쟁 중입니다.\n
+과도한 개발과 산업화로 환경이 계속 파괴되고 있습니다.\n
+이상 기후, 미세먼지 등 환경오염은 더는 묵인 할 수 없는
+경지까지 와 버렸죠. 유엔 환경 안전 연구소에 따르면
+2050년까지 기후 변화에 따른 자연재해로 생기는 기후 \n
+난민이 10억 명에 이를 것으로 예상됩니다.
+
+
+ 이제는 우리들이 바뀔 때 입니다.
+    </string>
+
+    <string name="intro">
+        아기 북극곰들이 걱정되시나요?
+
+그렇다면 바로 지금 Greenlife와 함께 지구를 보듬어줄 수 있는 챌린지에 참여해 주세요!
+    </string>
 </resources>
