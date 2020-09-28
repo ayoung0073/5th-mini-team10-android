@@ -3,19 +3,16 @@ package com.moonayoung.greenlife.challenge;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.moonayoung.greenlife.FragmentFeed;
-import com.moonayoung.greenlife.FragmentSetting;
+import com.moonayoung.greenlife.setting.FragmentSetting;
 import com.moonayoung.greenlife.intro.IntroActivity;
 import com.moonayoung.greenlife.intro.LoadingActivity;
 import com.moonayoung.greenlife.R;
@@ -76,4 +73,5 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent2);
         }
     }
+
 }
