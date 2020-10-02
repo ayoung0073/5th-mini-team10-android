@@ -53,9 +53,10 @@ public class FragmentSetting extends Fragment {
                 activity.onFragmentChange(0);*/
 
                 Intent intent = new Intent(getActivity(),AccountSettings.class);
-                //startActivity(intent);
+                startActivity(intent);
             }
         });
+
 
        /* buttonNotice.setOnClickListener(new View.OnClickListener() {
             @Override

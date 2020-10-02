@@ -19,12 +19,6 @@
         android:gravity="center"
         android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/btn1"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_gravity="center"
-        android:text="@string/go" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
