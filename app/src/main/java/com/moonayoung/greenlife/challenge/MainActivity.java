@@ -3,26 +3,25 @@ package com.moonayoung.greenlife.challenge;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.moonayoung.greenlife.FragmentFeed;
 import com.moonayoung.greenlife.FragmentSetting;
 import com.moonayoung.greenlife.api.ApiService;
+import com.moonayoung.greenlife.challenge.FragmentChallenge;
 import com.moonayoung.greenlife.intro.IntroActivity;
 import com.moonayoung.greenlife.intro.LoadingActivity;
 import com.moonayoung.greenlife.R;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.HEAD;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
         Intent intent = new Intent(this, LoadingActivity.class);
         startActivityForResult(intent, 101);
 
@@ -84,4 +82,5 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent2);
         }
     }
+
 }

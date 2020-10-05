@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -30,4 +31,38 @@ android:orientation="vertical">
     android:layout_width="match_parent"
     android:layout_height="497dp"
     android:layout_gravity="bottom" />
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:id="@+id/mainContainer"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#00FFFFFF"
+android:orientation="vertical">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="124dp"
+    android:background="#669C9C9C"
+    android:gravity="right"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/joinBT"
+        android:layout_width="77dp"
+        android:layout_height="71dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="20dp"
+        android:background="#FFFFFF"
+        android:text="참여하기" />
+
+</LinearLayout>
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/challengListView"
+    android:layout_width="match_parent"
+    android:layout_height="497dp"
+    android:layout_gravity="bottom" />
+>>>>>>> cdacd8a00b01d369310581d86ee8246f85d7f937
 </FrameLayout>

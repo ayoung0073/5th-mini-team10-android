@@ -16,6 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.moonayoung.greenlife.CameraActivity;
 import com.moonayoung.greenlife.R;
+import com.moonayoung.greenlife.challenge.ChallengeAdapter;
+import com.moonayoung.greenlife.challenge.ChallengeData;
+import com.moonayoung.greenlife.challenge.ChallengeFragment1;
+import com.moonayoung.greenlife.challenge.ChallengeFragment2;
+import com.moonayoung.greenlife.challenge.ChallengeFragment3;
+import com.moonayoung.greenlife.challenge.ChallengeFragment4;
+import com.moonayoung.greenlife.challenge.ChallengeFragment5;
+import com.moonayoung.greenlife.challenge.ChallengeList;
+import com.moonayoung.greenlife.challenge.onChallengeListClickListener;
 
 public class FragmentChallenge extends Fragment {
 
@@ -25,8 +34,8 @@ public class FragmentChallenge extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_challenge, container, false);
-        challengeListView = (RecyclerView)rootView.findViewById(R.id.challengListView);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_challenge, container, false);
+        challengeListView = (RecyclerView) rootView.findViewById(R.id.challengListView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false); //linearlayout으로 리싸이클러뷰 설정
         challengeListView.setLayoutManager(layoutManager);
         //ChallengeList challengeList = new ChallengeList(); // ChallengeData로 바꿈
@@ -40,7 +49,7 @@ public class FragmentChallenge extends Fragment {
         joinBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(),CameraActivity.class);
+                Intent intent = new Intent(getContext(), CameraActivity.class);
                 getActivity().startActivityForResult(intent, 101);
             }
         });

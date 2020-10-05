@@ -51,6 +51,8 @@ public class JoinFragment extends Fragment {
         joinBT2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 ((IntroActivity)getActivity()).setFinish();
                 if(email!=null && passwd!=null){
                     postJoin();
