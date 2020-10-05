@@ -3,7 +3,7 @@ package com.moonayoung.greenlife.challenge;
 
 import java.util.ArrayList;
 
-class ChallengeData {
+public class ChallengeData {
 
     ArrayList<ChallengeList> challengeLists = new ArrayList();
 
