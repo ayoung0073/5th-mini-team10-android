@@ -8,6 +8,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,13 +21,17 @@ import com.moonayoung.greenlife.intro.IntroActivity;
 import com.moonayoung.greenlife.intro.LoadingActivity;
 import com.moonayoung.greenlife.R;
 
+import java.util.Stack;
+
+import static com.moonayoung.greenlife.challenge.FragmentChallenge.fragmentStack;
+
 public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private FragmentChallenge fragmentChallenge = new FragmentChallenge();
     private FragmentFeed fragmentFeed = new FragmentFeed();
     private FragmentSetting fragmentSetting = new FragmentSetting();
-
+    public static Stack<Fragment> fragmentStack; //프래그먼트 뒤로가기를 위한 프래그먼트 스택
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,5 +80,18 @@ public class MainActivity extends AppCompatActivity {
             Intent intent2 = new Intent(this, IntroActivity.class);
             startActivity(intent2);
         }
+    }
+
+    //뒤로가기 버튼 눌렀을 때 호출되는 함수 오버라이드
+    @Override
+    public void onBackPressed() {
+        if(!fragmentStack.isEmpty()){
+            Fragment nextFragment = fragmentStack.pop();
+            fragmentManager.beginTransaction().replace(R.id.container, nextFragment).commit();
+            System.out.println("[TESTING >>] " + fragmentStack.size());
+        }else {
+            super.onBackPressed();
+        }
+
     }
 }
