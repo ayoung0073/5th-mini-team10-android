@@ -1,24 +1,21 @@
 package com.moonayoung.greenlife.challenge;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.moonayoung.greenlife.CameraActivity;
 import com.moonayoung.greenlife.FragmentFeed;
-import com.moonayoung.greenlife.setting.FragmentSetting;
+import com.moonayoung.greenlife.FragmentSetting;
 import com.moonayoung.greenlife.intro.IntroActivity;
 import com.moonayoung.greenlife.intro.LoadingActivity;
 import com.moonayoung.greenlife.R;
@@ -35,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frameLayout, fragmentChallenge).commitAllowingStateLoss();
@@ -63,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         Intent intent = new Intent(this, LoadingActivity.class);
         startActivityForResult(intent, 101);
 
@@ -79,5 +76,4 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent2);
         }
     }
-
 }
