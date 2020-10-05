@@ -10,8 +10,9 @@ import android.os.Handler;
 
 import com.moonayoung.greenlife.R;
 
-public class LoadingActivity extends Activity {
+//import com.moonayoung.greenlife.R;
 
+public class LoadingActivity extends Activity {
 
 
     @Override
@@ -21,13 +22,14 @@ public class LoadingActivity extends Activity {
         startLoading();
     }
 
-    private void startLoading(){ // 2초동안 로딩하고, 액티비티 끝냄
+    private void startLoading() { // 2초동안 로딩하고, 액티비티 끝냄
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 finish();
             }
-        },2000);
+        }, 2000);
     }
+
 }

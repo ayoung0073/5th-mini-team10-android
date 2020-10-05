@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.moonayoung.greenlife.R;
+//import com.moonayoung.greenlife.R;
 
 public class FragmentSetting extends Fragment {
     @Nullable

@@ -1,6 +1,8 @@
 package com.moonayoung.greenlife.intro;
 
 import android.os.Bundle;
+import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,11 +16,12 @@ import com.moonayoung.greenlife.R;
 import java.util.ArrayList;
 
 public class IntroActivity extends AppCompatActivity {
-    CardNewsFragment cardNewsFragment;
-    IntroFragment introFragment;
-    SuggestFragment suggestFragment;
+    IntroFragment1 introFragment1;
+    IntroFragment2 introFragment2;
+    IntroFragment3 introFragment3;
 
     ViewPager container;
+    FrameLayout frameContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +30,14 @@ public class IntroActivity extends AppCompatActivity {
 
         FragmentManager manager = getSupportFragmentManager();
 
-        cardNewsFragment = new CardNewsFragment(); // 처음 보여지는 Fragment
-        introFragment = new IntroFragment(); // 어플 소개 Fragment
-        suggestFragment = new SuggestFragment(); // 참여 유도 Fragment
+        introFragment1 = new IntroFragment1(); // 처음 보여지는 Fragment
+        introFragment2 = new IntroFragment2(); // 어플 소개 Fragment
+        introFragment3 = new IntroFragment3(); // 참여 유도 Fragment
 
         container = findViewById(R.id.container);
         container.setOffscreenPageLimit(3); // 뷰페이저 3장 제한
+
+        frameContainer = findViewById(R.id.frameContainer);
 
 
         class PagerAdapter extends FragmentStatePagerAdapter { // 뷰페이저 어댑터
@@ -60,16 +65,32 @@ public class IntroActivity extends AppCompatActivity {
         }
 
         PagerAdapter adapter = new PagerAdapter(manager);
-        adapter.addItem(cardNewsFragment); // 뷰페이저에 프래그먼트 담기
-        adapter.addItem(introFragment);
-        adapter.addItem(suggestFragment);
+        adapter.addItem(introFragment1); // 뷰페이저에 프래그먼트 담기
+        adapter.addItem(introFragment2);
+        adapter.addItem(introFragment3);
 
 
         container.setAdapter(adapter);
     }
 
+    public void setFragment(String str){
+        //getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+        getSupportFragmentManager().beginTransaction().remove(introFragment1).commit(); // 프래그먼트 없애기
+        getSupportFragmentManager().beginTransaction().remove(introFragment2).commit();
+        getSupportFragmentManager().beginTransaction().remove(introFragment3).commit();
+
+        if(str.equals("join")){
+            Toast.makeText(getApplicationContext(),str+"눌림",Toast.LENGTH_LONG).show();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameContainer, new JoinFragment()).commit();
+            //onAttachFragment(new JoinFragment());
+        }
+        else if(str.equals("login")){
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameContainer, new LoginFragment()).commit();
+            //onAttachFragment(new LoginFragment());
+        }
+    }
+
     public void setFinish() { // 메서드 호출되면 액티비티 끝냄
         finish();
     }
-
 }

@@ -25,3 +25,4 @@ public class ChallengeFragment4 extends Fragment {
         return rootView;
     }
 }
+
