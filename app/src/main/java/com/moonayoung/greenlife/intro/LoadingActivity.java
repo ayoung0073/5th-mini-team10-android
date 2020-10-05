@@ -13,13 +13,12 @@ import com.moonayoung.greenlife.R;
 //import com.moonayoung.greenlife.R;
 
 public class LoadingActivity extends Activity {
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
         startLoading();
+        finishActivity(101); // 뭐가문제냐
     }
 
     private void startLoading() { // 2초동안 로딩하고, 액티비티 끝냄
@@ -30,6 +29,7 @@ public class LoadingActivity extends Activity {
                 finish();
             }
         }, 2000);
+
     }
 
 }

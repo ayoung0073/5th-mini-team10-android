@@ -1,32 +1,3 @@
-<<<<<<< HEAD
-package com.moonayoung.greenlife.challenge;
-
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import com.moonayoung.greenlife.R;
-
-public class ChallengeFragment3 extends Fragment {
-
-    ChallengeData data = new ChallengeData();
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_challenge3,container,false);
-        TextView content = rootView.findViewById(R.id.content3);
-        content.setText(data.challengeLists.get(2).getContent());
-        return rootView;
-    }
-}
-
-=======
 package com.moonayoung.greenlife.challenge;
 
 import android.os.Bundle;
@@ -43,6 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moonayoung.greenlife.R;
+import com.moonayoung.greenlife.challenge.ChallengeData;
+import com.moonayoung.greenlife.challenge.ChallengeFragment1;
+import com.moonayoung.greenlife.challenge.ChallengeFragment2;
+import com.moonayoung.greenlife.challenge.ChallengeList;
+import com.moonayoung.greenlife.challenge.DetailChallengeAdapter;
 
 //주제3 눌렀을 때의 프래그먼트
 
@@ -102,7 +78,7 @@ public class ChallengeFragment3 extends Fragment {
                         fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment4()).commit();
                         break;
                     case 5:
-                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment5()).commit();
+                        //fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment5()).commit();
                         break;
                 }
             }
@@ -113,4 +89,3 @@ public class ChallengeFragment3 extends Fragment {
     }
 
 }
->>>>>>> 84185c7cb89ef8c2b0f28b21d73f62ed3504f8fa

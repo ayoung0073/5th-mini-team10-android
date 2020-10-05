@@ -25,10 +25,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.moonayoung.greenlife.CameraActivity;
 import com.moonayoung.greenlife.R;
 import com.moonayoung.greenlife.challenge.ChallengeAdapter;
-import com.moonayoung.greenlife.challenge.ChallengeData;
+
 
 public class ShareActivity extends AppCompatActivity {
-    private static final int PICK_FROM_CAMERA= 1;
+/*    private static final int PICK_FROM_CAMERA= 1;
     private static final int PICK_FROM_ALBUM = 2;
 
     private Uri mImageCaptureUri;
@@ -45,6 +45,7 @@ public class ShareActivity extends AppCompatActivity {
 
         imageView = (ImageView) findViewById(R.id.photo);
         //선택된 사진 받아서 서버에 업로드
+*//*
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +60,8 @@ public class ShareActivity extends AppCompatActivity {
             }else {
                     Toast.makeText(mContext, "먼저 업로드할 파일을 선택하세요", Toast.LENGTH_SHORT).show();
                 }
-        });
+        };
+*//*
 
 
     @Nullable
@@ -75,11 +77,11 @@ public class ShareActivity extends AppCompatActivity {
                 AlertDialog.Builder ad = new AlertDialog.Builder(ShareActivity.this);
                 ad.setTitle("님"); //username
                 ad.setMessage("참여 감사합니다 :) \n 오늘의 작은 실천들이 모여 \n 지구를 지켜가는 중입니다.\n 다른 챌린지도 함께 해 주세요.");
-                ad.show();
-            }
-        });
-        return rootView;
+        ad.show();
     }
+});
+        return rootView;
+        }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -94,6 +96,6 @@ public class ShareActivity extends AppCompatActivity {
 
             }
         }
-    }
+    }*/
 
 }

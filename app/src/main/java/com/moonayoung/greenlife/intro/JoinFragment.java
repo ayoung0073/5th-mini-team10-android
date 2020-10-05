@@ -33,13 +33,13 @@ public class JoinFragment extends Fragment {
     String nickname;
     String passwd;
 
-    AccountManager am = AccountManager.get(getContext());
+//    AccountManager am = AccountManager.get(getContext());
 
     Retrofit retrofit;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_login,container,false);
+        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_join,container,false);
 
         apiService = retrofit.create(ApiService.class);
 
@@ -51,18 +51,18 @@ public class JoinFragment extends Fragment {
         joinBT2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 ((IntroActivity)getActivity()).setFinish();
                 if(email!=null && passwd!=null){
-                    postJoin();
+                    ((IntroActivity)getActivity()).setFinish();
+
+                    //postJoin();
                 }
             }
         });
 
         return rootView;
     }
-    private void postJoin(){
+/*    private void postJoin(){
         User user = new User(email, passwd);
         HashMap<String, String> map = new HashMap<>();
         map.put("email",user.getEmail());
@@ -91,6 +91,6 @@ public class JoinFragment extends Fragment {
 
             }
         });
-    }
+    }*/
 
 }

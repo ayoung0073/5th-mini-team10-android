@@ -15,7 +15,7 @@ import com.moonayoung.greenlife.R;
 //import com.moonayoung.greenlife.R;
 
 
-class CardNewsFragment extends Fragment {
+public class IntroFragment1 extends Fragment {
 
     @Nullable
     @Override
