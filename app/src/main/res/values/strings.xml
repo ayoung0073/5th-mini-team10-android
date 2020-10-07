@@ -24,4 +24,9 @@
 
 그렇다면 바로 지금 Greenlife와 함께 지구를 보듬어줄 수 있는 챌린지에 참여해 주세요!
     </string>
+    <string name="a">계정 설정</string>
+    <string name="b">공지사항</string>
+    <string name="c">문의하기</string>
+    <string name="d">버전정보</string>
+    <string name="go">참여</string>
 </resources>

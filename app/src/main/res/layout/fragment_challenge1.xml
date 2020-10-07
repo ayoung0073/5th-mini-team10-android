@@ -35,6 +35,7 @@
             android:textSize="18sp" />
     </LinearLayout>
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/detail_challengeListView"
         android:layout_width="match_parent"

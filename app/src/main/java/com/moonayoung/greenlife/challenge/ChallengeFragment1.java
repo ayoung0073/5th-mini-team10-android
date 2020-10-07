@@ -19,39 +19,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.moonayoung.greenlife.CameraActivity;
 import com.moonayoung.greenlife.R;
 
-import java.util.Stack;
-
-import static com.moonayoung.greenlife.challenge.FragmentChallenge.fragmentStack;
-
-//주제1 눌렀을 때의 프래그먼트
-
 public class ChallengeFragment1 extends Fragment {
 
     ChallengeData data = new ChallengeData();
     ChallengeList selectedchallengeList = new ChallengeList(); //선택된 주제의 챌린지리스트
     RecyclerView detailchallengeListView;
     DetailChallengeAdapter adapter;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        final ChallengeFragment1 currentFragment = this; //현재 프래그먼트
-
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_challenge1, container, false);
-        ImageButton backButton = rootView.findViewById(R.id.backButton); //세부챌린지 목록에서의 뒤로가기 버튼(프래그먼트 뒤로가기)
+        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_challenge1,container,false);
+        ImageButton backButton = rootView.findViewById(R.id.backButton); //뒤로가기 버튼
         TextView content = rootView.findViewById(R.id.content1);
         content.setText(data.challengeLists.get(0).getContent());
 
-        //세부챌린지 목록에서의 뒤로가기 버튼 눌렀을 때
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fragmentStack.push(currentFragment);
-                MainActivity.onBackPressed();
-            }
-        });
-        detailchallengeListView = (RecyclerView) rootView.findViewById(R.id.detail_challengeListView);
+        
+        detailchallengeListView = (RecyclerView)rootView.findViewById(R.id.detail_challengeListView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false); //linearlayout으로 리싸이클러뷰 설정
         detailchallengeListView.setLayoutManager(layoutManager);
         //ChallengeList challengeList = new ChallengeList(); // ChallengeData로 바꿈
@@ -102,5 +86,4 @@ public class ChallengeFragment1 extends Fragment {
 
         return rootView;
     }
-
 }
