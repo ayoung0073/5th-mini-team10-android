@@ -34,14 +34,14 @@ public class ChallengeFragment1 extends Fragment {
         TextView content = rootView.findViewById(R.id.content1);
         content.setText(data.challengeLists.get(0).getContent());
 
-        
+
         detailchallengeListView = (RecyclerView)rootView.findViewById(R.id.detail_challengeListView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false); //linearlayout으로 리싸이클러뷰 설정
         detailchallengeListView.setLayoutManager(layoutManager);
         //ChallengeList challengeList = new ChallengeList(); // ChallengeData로 바꿈
         ChallengeData data = new ChallengeData();
         selectedchallengeList = data.challengeLists.get(0);
-        adapter = new DetailChallengeAdapter();
+        adapter = new DetailChallengeAdapter(getActivity()); //디테일챌린지어댑터 클래스에 문맥 보냄(현재 프래그먼트에 팝업 띄우기 위해)
         adapter.setChallengeList(selectedchallengeList);
         //adapter.setItems(challengeList.getChallengeLists()); // 데이터 저장되어 있음 Title, content, 세부 챌린지 배열
         detailchallengeListView.setAdapter(adapter); // 어댑터에 설정 -> 리싸이클러뷰에 챌린지 목록 보임
@@ -86,4 +86,5 @@ public class ChallengeFragment1 extends Fragment {
 
         return rootView;
     }
+
 }
