@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.moonayoung.greenlife.CameraActivity;
+import com.moonayoung.greenlife.camera.CameraActivity;
 import com.moonayoung.greenlife.R;
 
 //챌린지 주제 리스트 프래그먼트
