@@ -25,9 +25,9 @@ android:orientation="vertical">
 
 </LinearLayout>
 
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/challengListView"
-    android:layout_width="match_parent"
-    android:layout_height="497dp"
-    android:layout_gravity="bottom" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/challengListView"
+        android:layout_width="match_parent"
+        android:layout_height="383dp"
+        android:layout_gravity="bottom" />
 </FrameLayout>

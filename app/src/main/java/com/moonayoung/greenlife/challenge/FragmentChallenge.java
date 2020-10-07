@@ -1,5 +1,6 @@
 package com.moonayoung.greenlife.challenge;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +25,7 @@ public class FragmentChallenge extends Fragment {
 
     RecyclerView challengeListView;
     ChallengeAdapter adapter;
+    FragmentManager fragmentManager = null;
 
     @Nullable
     @Override
@@ -39,22 +42,42 @@ public class FragmentChallenge extends Fragment {
         challengeListView.setAdapter(adapter); // 어댑터에 설정 -> 리싸이클러뷰에 챌린지 목록 보임
 
         Button joinBT = rootView.findViewById(R.id.joinBT);
+
         joinBT.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(),CameraActivity.class);
-                getActivity().startActivityForResult(intent, 101);
+            public void onClick(View view) { //팝업창
+                AlertDialog.Builder ad = new AlertDialog.Builder(getActivity());
+                ad.setTitle("님"); //username
+                ad.setMessage("참여 감사합니다 :) \n 당신의 실천이 \n 일상이 되길 바랍니다.");
+                ad.setPositiveButton("사진으로 인증하기",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent = new Intent(getActivity(), CameraActivity.class);
+                                startActivity(intent);
+                                dialogInterface.dismiss();
+                            }
+                        }).setNegativeButton("인증은 안 할래요", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                ad.show();
             }
         });
 
         adapter.setOnItemClickListener(new onChallengeListClickListener() {
             @Override
             public void onItemClick(ChallengeAdapter.ViewHolder holder, View view, int position) { // 챌린지 목록 각각 눌렀을 때
+
+                //fragmentStack.push(currentFragment); //프래그먼트 바뀌기 전에 현재 프래그먼트 스택에 저장
+
                 ChallengeList item = adapter.getItem(position);
                 position++;
                 //Toast.makeText(getApplicationContext(), position + "번째 목록 선택됨",Toast.LENGTH_LONG).show();
+                fragmentManager = getFragmentManager();
 
-                FragmentManager fragmentManager = getFragmentManager();
                 switch (position) {
                     case 1: // 첫번째 click
                         fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment1()).commit(); //1번째 챌린지 프래그먼트 띄움
@@ -78,4 +101,6 @@ public class FragmentChallenge extends Fragment {
         return rootView;
 
     }
+
+
 }

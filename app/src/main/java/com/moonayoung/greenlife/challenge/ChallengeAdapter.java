@@ -9,8 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moonayoung.greenlife.R;
+import com.moonayoung.greenlife.challenge.ChallengeList;
 
 import java.util.ArrayList;
+
 
 public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.ViewHolder> {
 
@@ -62,7 +64,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
     }
 
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView; // challenge_item 텍스트 뷰
 
         public ViewHolder(final View itemView, final onChallengeListClickListener listener) {

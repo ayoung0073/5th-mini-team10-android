@@ -10,17 +10,20 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.moonayoung.greenlife.alarm.AlarmSetting;
 import com.moonayoung.greenlife.FragmentFeed;
 import com.moonayoung.greenlife.setting.FragmentSetting;
 import com.moonayoung.greenlife.intro.IntroActivity;
 import com.moonayoung.greenlife.intro.LoadingActivity;
 import com.moonayoung.greenlife.R;
 
+import com.moonayoung.greenlife.setting.FragmentSetting;
+
 public class MainActivity extends AppCompatActivity {
+
+    private static int ONE_MINUTE = 5626;
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private FragmentChallenge fragmentChallenge = new FragmentChallenge();
@@ -32,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        new AlarmSetting(getApplicationContext()).Alarm();
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frameLayout, fragmentChallenge).commitAllowingStateLoss();
@@ -52,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
                         transaction.replace(R.id.frameLayout, fragmentSetting).commitAllowingStateLoss();
                         break;
                 }
+
+                /* 똑똑~ 오늘의 작은 실천을 보여주세요! */
                 return true;
             }
         });
@@ -62,9 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, LoadingActivity.class);
         startActivityForResult(intent, 101);
-
-
-
     }
 
     @Override

@@ -14,6 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moonayoung.greenlife.R;
+import com.moonayoung.greenlife.challenge.ChallengeData;
+import com.moonayoung.greenlife.challenge.ChallengeFragment1;
+import com.moonayoung.greenlife.challenge.ChallengeFragment2;
+import com.moonayoung.greenlife.challenge.ChallengeFragment3;
+import com.moonayoung.greenlife.challenge.ChallengeList;
+import com.moonayoung.greenlife.challenge.DetailChallengeAdapter;
 
 //주제4 눌렀을 때의 프래그먼트
 
@@ -73,7 +79,7 @@ public class ChallengeFragment4 extends Fragment {
                         fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment4()).commit();
                         break;
                     case 5:
-                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment5()).commit();
+                        //fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment5()).commit();
                         break;
                 }
             }

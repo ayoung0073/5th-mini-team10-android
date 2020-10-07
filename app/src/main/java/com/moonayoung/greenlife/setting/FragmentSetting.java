@@ -58,7 +58,7 @@ public class FragmentSetting extends Fragment {
         });
 
 
-       /* buttonNotice.setOnClickListener(new View.OnClickListener() {
+/*        buttonNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
