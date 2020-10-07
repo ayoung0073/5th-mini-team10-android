@@ -1,43 +1,40 @@
-package com.moonayoung.greenlife;
+package com.moonayoung.greenlife.camera;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
+import com.moonayoung.greenlife.R;
 import com.pedro.library.AutoPermissions;
 import com.pedro.library.AutoPermissionsListener;
 
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 public class CameraActivity extends AppCompatActivity implements AutoPermissionsListener {
     CameraView cameraView;
     int cameraFacing; // 후면인지 전면인지
     static CameraActivity fin; // 액티비티 종료시키기 위한 변수
+    ImageView picture;
+    Intent intent;
+    Bitmap bitmap;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +47,11 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
         Button galleryBT = findViewById(R.id.galleryBT);
         Button convertBT = findViewById(R.id.convertBT);
 
+        picture = findViewById(R.id.pictureView);
+
         AutoPermissions.Companion.loadAllPermissions(this,101); //실제로는 onDenied,onGranted 이런 거 오버라이딩 //이거 위치 중요
 
-        FrameLayout cameraFrame = findViewById(R.id.cameraFrame);
+        final FrameLayout cameraFrame = findViewById(R.id.cameraFrame);
         cameraView = new CameraView(this);
         cameraFrame.addView(cameraView);
 
@@ -71,6 +70,7 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"카메라전환버튼",Toast.LENGTH_LONG).show();
+
             }
         });
 
@@ -78,9 +78,33 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"촬영버튼",Toast.LENGTH_LONG).show();
+                cameraView.capture(new Camera.PictureCallback() {
+                    @Override
+                    public void onPictureTaken(byte[] bytes, Camera camera) {
+                        bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                        picture.setImageBitmap(bitmap);
+
+                       send(bitmap);
+
+                    }
+                });
             }
         });
 
+
+    }
+
+    public void send(Bitmap bitmap){
+
+        intent = new Intent(getApplicationContext(),ShareActivity.class);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, stream); // 이거 계속 바꾸니 됨 (1007) ㅁㅇㅇ
+
+        byte[] bytes = stream.toByteArray();
+        intent.putExtra("photo",bytes);
+
+        Toast.makeText(getApplicationContext(),"인텐트 시작!",Toast.LENGTH_LONG).show();
+        startActivity(intent);
     }
 
     @Override
@@ -175,8 +199,11 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
                 try {
                     InputStream inputStream = resolver.openInputStream(fileUri);
                     //파라미터로 데이터 전달
-                    Bitmap bitmap= BitmapFactory.decodeStream(inputStream);
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    bitmap= BitmapFactory.decodeStream(inputStream);
                     // 데이터로 받은 파일을 비트맵객체로 리턴
+                    picture.setImageBitmap(bitmap);
+                    send(bitmap);
 
                     inputStream.close();
                 }catch(Exception e){

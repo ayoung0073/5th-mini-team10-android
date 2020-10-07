@@ -41,7 +41,7 @@ public class JoinFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_join,container,false);
 
-        apiService = retrofit.create(ApiService.class);
+//        apiService = retrofit.create(ApiService.class);
 
         email = ((EditText)rootView.findViewById(R.id.email_join)).getText().toString();
         nickname = ((EditText)rootView.findViewById(R.id.nickname_join)).getText().toString();

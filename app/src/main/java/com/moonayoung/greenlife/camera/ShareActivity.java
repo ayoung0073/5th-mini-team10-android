@@ -1,16 +1,9 @@
 package com.moonayoung.greenlife.camera;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,14 +14,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.moonayoung.greenlife.CameraActivity;
 import com.moonayoung.greenlife.R;
-import com.moonayoung.greenlife.challenge.ChallengeAdapter;
 
 
 public class ShareActivity extends AppCompatActivity {
-/*    private static final int PICK_FROM_CAMERA= 1;
+    private static final int PICK_FROM_CAMERA= 1;
     private static final int PICK_FROM_ALBUM = 2;
 
     private Uri mImageCaptureUri;
@@ -38,33 +32,45 @@ public class ShareActivity extends AppCompatActivity {
 
     ImageView imageView;
 
+    Intent intent;
+    Bitmap bitmap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share);
 
-        imageView = (ImageView) findViewById(R.id.photo);
+        intent = getIntent();
+        byte[] bytes = intent.getByteArrayExtra("photo");
+        bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+
+        imageView = findViewById(R.id.photo);
         //선택된 사진 받아서 서버에 업로드
-*//*
-        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!TextUtils.isEmpty(imagePath)) {
-                    if(NetworkHelper.checkConnection(mContext)) { //인터넷 연결 체크
-                        String ImageUploadURL = "";
-                        new ImageUploadTask().execute(ImageUploadURL, imagePath);
-                } else {
-                        Toast.makeText(mContext, "인터넷 연결을 확인하세요", Toast.LENGTH_LONG).show();
-                    }
-            }else {
-                    Toast.makeText(mContext, "먼저 업로드할 파일을 선택하세요", Toast.LENGTH_SHORT).show();
-                }
-        };
-*//*
+        imageView.setImageBitmap(bitmap);
+
+       //FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
+/*        fab.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   if (!TextUtils.isEmpty(imagePath)) {
+                       if (NetworkHelper.checkConnection(mContext)) { //인터넷 연결 체크
+                           String ImageUploadURL = "";
+                           new ImageUploadTask().execute(ImageUploadURL, imagePath);
+                       } else {
+                           Toast.makeText(mContext, "인터넷 연결을 확인하세요", Toast.LENGTH_LONG).show();
+                       }
+                   } else {
+                       Toast.makeText(mContext, "먼저 업로드할 파일을 선택하세요", Toast.LENGTH_SHORT).show();
+                   }
+               }
+           });*/
+    }
+}
 
 
-    @Nullable
+
+/*    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.activity_share, container, false);
@@ -81,7 +87,8 @@ public class ShareActivity extends AppCompatActivity {
     }
 });
         return rootView;
-        }
+        }*/
+/*
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -96,6 +103,6 @@ public class ShareActivity extends AppCompatActivity {
 
             }
         }
-    }*/
+    }
+*/
 
-}
