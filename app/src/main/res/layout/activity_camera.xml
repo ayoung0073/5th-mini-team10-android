@@ -9,47 +9,58 @@
     <FrameLayout
         android:id="@+id/cameraFrame"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginBottom="80dp">
+        android:layout_height="512dp">
 
     </FrameLayout>
 
-    <ImageView
-        android:id="@+id/pictureView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="234dp" />
+        android:layout_height="100dp"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/photoBT"
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/cam" />
+
+        <Button
+            android:id="@+id/convertBT"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/cam_flip" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="end"
-        android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/galleryBT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="2dp"
-            android:text="갤러리" />
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:text="사진 앨범" />
 
         <Button
-            android:id="@+id/photoBT"
+            android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/ic_menu_camera" />
-
-        <Button
-            android:id="@+id/convertBT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:text="화면전환" />
-
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:text="카메라" />
     </LinearLayout>
 
 </LinearLayout>

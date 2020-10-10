@@ -10,7 +10,7 @@ import android.content.Intent;
 import androidx.core.app.NotificationCompat;
 
 import com.moonayoung.greenlife.R;
-import com.moonayoung.greenlife.challenge.MainActivity;
+import com.moonayoung.greenlife.MainActivity;
 
 public class AlarmReceiver extends BroadcastReceiver {
 

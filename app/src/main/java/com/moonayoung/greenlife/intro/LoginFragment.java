@@ -4,6 +4,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +67,7 @@ public class LoginFragment extends Fragment {
         User user = new User(email.getText().toString(), passwd.getText().toString());
         HashMap<String, String> map = new HashMap<>();
         map.put("email",user.getEmail());
-        map.put("passwd",user.getPasswd());
+        map.put("passwd",user.getPassword());
         Call<String> call = apiService.postLogin(map);
 
         call.enqueue(new Callback<String>() {
@@ -83,11 +84,15 @@ public class LoginFragment extends Fragment {
                         Toast.makeText(getContext(),"환영합니다",Toast.LENGTH_LONG).show();
                     }
                 }
+                else{
+                    Toast.makeText(getContext(),"응답안옴",Toast.LENGTH_LONG).show();
+                    Log.d("fjkad","안됨ㅏㄴ도");
+                }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-
+                Log.d("fjkad","failed");
             }
         });
     }

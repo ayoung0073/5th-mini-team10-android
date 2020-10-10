@@ -1,13 +1,16 @@
 package com.moonayoung.greenlife.api
 
+import com.google.gson.annotations.SerializedName
+
 class User{
+    @SerializedName("email") // JSON 객체 매칭
     var email: String
-
+    @SerializedName("nickname")
     var nickname: String = ""
+    @SerializedName("password")
+    var password: String
 
-    var passwd: String
-
-    constructor(email:String, nickname: String, passwd: String)
+    constructor(email:String, nickname: String, password: String)
 
     {
 
@@ -15,17 +18,17 @@ class User{
 
         this.nickname = nickname
 
-        this.passwd = passwd
+        this.password = password
 
     }
 
-    constructor(email:String, passwd: String)
+    constructor(email:String, password: String)
 
     {
 
         this.email = email
 
-        this.passwd = passwd
+        this.password = password
 
     }
 }

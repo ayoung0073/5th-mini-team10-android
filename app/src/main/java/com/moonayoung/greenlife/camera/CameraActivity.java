@@ -47,12 +47,10 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
         Button galleryBT = findViewById(R.id.galleryBT);
         Button convertBT = findViewById(R.id.convertBT);
 
-        picture = findViewById(R.id.pictureView);
-
         AutoPermissions.Companion.loadAllPermissions(this,101); //실제로는 onDenied,onGranted 이런 거 오버라이딩 //이거 위치 중요
 
         final FrameLayout cameraFrame = findViewById(R.id.cameraFrame);
-        cameraView = new CameraView(this);
+        cameraView = new CameraView(fin, cameraFacing);
         cameraFrame.addView(cameraView);
 
 
@@ -70,6 +68,17 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"카메라전환버튼",Toast.LENGTH_LONG).show();
+                // 전면 -> 후면 or 후면 -> 전면으로 카메라 상태 전환
+
+                cameraFacing = (cameraFacing==Camera.CameraInfo.CAMERA_FACING_FRONT) ?
+                        Camera.CameraInfo.CAMERA_FACING_BACK
+                        : Camera.CameraInfo.CAMERA_FACING_FRONT;
+
+                cameraFrame.removeView(cameraView);
+
+                // 변경된 방향으로 새로운 카메라 View 생성
+                cameraView = new CameraView(fin, cameraFacing);
+                cameraFrame.addView(cameraView);
 
             }
         });
@@ -82,7 +91,6 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
                     @Override
                     public void onPictureTaken(byte[] bytes, Camera camera) {
                         bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        picture.setImageBitmap(bitmap);
 
                        send(bitmap);
 
@@ -122,7 +130,7 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
         SurfaceHolder holder;
         Camera camera = null;
 
-        public CameraView(Context context) {
+        public CameraView(Context context, int cameraFacing) {
             super(context);
 
             init(context);
@@ -202,7 +210,6 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
                     BitmapFactory.Options options = new BitmapFactory.Options();
                     bitmap= BitmapFactory.decodeStream(inputStream);
                     // 데이터로 받은 파일을 비트맵객체로 리턴
-                    picture.setImageBitmap(bitmap);
                     send(bitmap);
 
                     inputStream.close();

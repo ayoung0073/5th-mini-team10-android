@@ -2,24 +2,17 @@ package com.moonayoung.greenlife.setting;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.moonayoung.greenlife.R;
-import com.moonayoung.greenlife.challenge.MainActivity;
-
-import org.w3c.dom.Text;
+import com.moonayoung.greenlife.MainActivity;
 
 public class FragmentSetting extends Fragment {
     private Button buttonAccount;

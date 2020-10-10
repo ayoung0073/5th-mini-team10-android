@@ -1,18 +1,12 @@
 package com.moonayoung.greenlife.setting;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.moonayoung.greenlife.R;
-import com.moonayoung.greenlife.challenge.MainActivity;
 
 public class AccountSettings extends AppCompatActivity {
 
