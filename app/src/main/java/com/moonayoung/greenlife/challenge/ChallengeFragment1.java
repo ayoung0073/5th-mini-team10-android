@@ -16,8 +16,17 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.JsonArray;
+import com.moonayoung.greenlife.api.RetrofitClient;
+import com.moonayoung.greenlife.api.SubChallenge;
 import com.moonayoung.greenlife.camera.CameraActivity;
 import com.moonayoung.greenlife.R;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChallengeFragment1 extends Fragment {
 
@@ -34,6 +43,19 @@ public class ChallengeFragment1 extends Fragment {
         TextView content = rootView.findViewById(R.id.content1);
         content.setText(data.challengeLists.get(0).getContent());
 
+        RetrofitClient retrofitClient = new RetrofitClient();
+        Call<List<SubChallenge>> call = retrofitClient.apiService.getChallenges();
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if (response.isSuccessful()) {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+            }
+        });
 
         detailchallengeListView = (RecyclerView)rootView.findViewById(R.id.detail_challengeListView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false); //linearlayout으로 리싸이클러뷰 설정
