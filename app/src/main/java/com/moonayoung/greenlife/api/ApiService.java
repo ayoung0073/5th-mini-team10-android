@@ -20,8 +20,8 @@ import retrofit2.http.Path;
 
 public interface ApiService {
 
-    @POST("/auth/login") // 로그인
-    Call<String> postLogin(@FieldMap HashMap<String,String> param);
+    @POST("user/login") // 로그인
+    Call<LoginPost> postLogin(@Header("Content-Type") String content, @Body User param);
 
 /*    @Headers({"Content-Type : application/json; charset=utf-8"})
     @FormUrlEncoded @POST("user/signup") // 회원가입

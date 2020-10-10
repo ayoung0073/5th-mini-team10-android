@@ -26,6 +26,7 @@ public class IntroActivity extends AppCompatActivity {
     IntroFragment1 introFragment1;
     IntroFragment2 introFragment2;
     IntroFragment3 introFragment3;
+    JoinFragment joinFragment;
 
     ViewPager container;
 
@@ -85,16 +86,16 @@ public class IntroActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().remove(introFragment3).commit();
 
         if(str.equals("join")){
-            Toast.makeText(getApplicationContext(),str+"눌림",Toast.LENGTH_LONG).show();
-            getSupportFragmentManager().beginTransaction().add(R.id.frameContainer, new JoinFragment()).commit();
-
+            joinFragment = new JoinFragment(); // join2로 넘어올 때 joinFragment remove 해야 함
+            getSupportFragmentManager().beginTransaction().add(R.id.frameContainer, joinFragment).commit();
             //1005 replace하면 오류 ! 앞에서 프래그먼트 다 remove해서 그런 듯 add해야함
-
-            //onAttachFragment(new JoinFragment());
+        }
+        if(str.equals("login2")){ //회원가입 후, 로그인 화면으로 이동
+            getSupportFragmentManager().beginTransaction().remove(joinFragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.frameContainer, new LoginFragment()).commit();
         }
         else if(str.equals("login")){
             getSupportFragmentManager().beginTransaction().add(R.id.frameContainer, new LoginFragment()).commit();
-            //onAttachFragment(new LoginFragment());
         }
     }
 

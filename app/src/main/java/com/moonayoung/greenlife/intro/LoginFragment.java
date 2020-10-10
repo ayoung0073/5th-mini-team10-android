@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,9 @@ import androidx.fragment.app.Fragment;
 
 import com.moonayoung.greenlife.api.ApiService;
 import com.moonayoung.greenlife.R;
+import com.moonayoung.greenlife.api.JoinPost;
+import com.moonayoung.greenlife.api.LoginPost;
+import com.moonayoung.greenlife.api.RetrofitClient;
 import com.moonayoung.greenlife.api.User;
 
 import java.util.HashMap;
@@ -31,33 +35,34 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginFragment extends Fragment {
     EditText email;
     EditText passwd;
-    ApiService apiService;
-    Retrofit retrofit;
+    TextView warning;
 
-    AccountManager am = AccountManager.get(getContext());
-    Bundle options = new Bundle();
+//    AccountManager am = AccountManager.get(getContext());
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_login,container,false);
-/*        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApiService.URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();*/
-        apiService = retrofit.create(ApiService.class);
 
         email = rootView.findViewById(R.id.email_login);
         passwd = rootView.findViewById(R.id.passwd_login);
+        warning = rootView.findViewById(R.id.warning_login);
 
         Button loginBT2 = rootView.findViewById(R.id.loginBT2);
         loginBT2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(email.getText().toString()!=null && passwd.getText().toString()!=null){
+                if(email!=null && passwd!=null){
                     postLogin();
                 }
-                ((IntroActivity)getActivity()).setFinish();
+                else{
+                    email.setText("");
+                    passwd.setText("");
+                    if(!email.getText().toString().contains("@"))
+                        warning.setText("잘못된 이메일 형식입니다.");
+                    else warning.setText("다시 입력해주세요.");
+                }
+
             }
         });
         return rootView;
@@ -65,34 +70,44 @@ public class LoginFragment extends Fragment {
 
     private void postLogin(){
         User user = new User(email.getText().toString(), passwd.getText().toString());
-        HashMap<String, String> map = new HashMap<>();
-        map.put("email",user.getEmail());
-        map.put("passwd",user.getPassword());
-        Call<String> call = apiService.postLogin(map);
 
-        call.enqueue(new Callback<String>() {
+        RetrofitClient.getApiService()
+                .postLogin("application/json; charset=utf-8", user).enqueue(new Callback<LoginPost>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<LoginPost> call, Response<LoginPost> response) {
+                System.out.println(response.toString());
+                System.out.println(response.errorBody());
                 if(response.isSuccessful()){
-                    final String token = response.body();
+                    LoginPost loginPost = response.body();
+                    System.out.println(loginPost.getNickname());
+                    System.out.println(loginPost.getMessage());
 
-                    if(token != null){
-                        final Account account = new Account(email.getText().toString(), SyncStateContract.Constants.ACCOUNT_TYPE);
-                        am.setAuthToken(account, SyncStateContract.Constants.ACCOUNT_TYPE, token);
+                    System.out.println(email.getText().toString());
+                    System.out.println(passwd.getText().toString());
 
-                        //임시
-                        Toast.makeText(getContext(),"환영합니다",Toast.LENGTH_LONG).show();
+
+                    if(!loginPost.isSuccess()){
+                        warning.setText("다시 로그인해주세요.");
+                        email.setText("");
+                        passwd.setText("");
                     }
+                    else{
+                        warning.setText("");
+                        Toast.makeText(getContext(),loginPost.getNickname()+"님 환영합니다!",Toast.LENGTH_LONG).show();
+                        ((IntroActivity)getActivity()).setFinish();
+
+                    }
+                    Log.d("로그인 성공", "   "+loginPost.isSuccess());
+                    Log.d("로그인 닉넴", "   "+loginPost.getNickname());
+                    Log.d("로그인 토큰", "     "+loginPost.getToken());
                 }
                 else{
                     Toast.makeText(getContext(),"응답안옴",Toast.LENGTH_LONG).show();
-                    Log.d("fjkad","안됨ㅏㄴ도");
                 }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.d("fjkad","failed");
+            public void onFailure(Call<LoginPost> call, Throwable t) {
             }
         });
     }
