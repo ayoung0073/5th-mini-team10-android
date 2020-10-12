@@ -9,31 +9,34 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moonayoung.greenlife.R;
+import com.moonayoung.greenlife.api.ChallengeItem;
 import com.moonayoung.greenlife.challenge.ChallengeList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.ViewHolder> {
 
-    ArrayList<ChallengeList> items = new ArrayList();
+    //ArrayList<ChallengeList> items = new ArrayList();
+    List<ChallengeItem> items;
     onChallengeListClickListener listener;
 
-    public void addItem(ChallengeList item) {
+    /*public void addItem(ChallengeList item) {
         items.add(item);
-    }
+    }*/
 
-    public void setItems(ArrayList<ChallengeList> items) { //ArrayList전체를 설정할 수 있는 함수
+    public void setItems(List<ChallengeItem> items) { //ArrayList전체를 설정할 수 있는 함수
         this.items = items;
     }
 
-    public ChallengeList getItem(int position) {
+    /*public ChallengeList getItem(int position) {
         return items.get(position);
-    }
+    }*/
 
-    public void setItem(int position, ChallengeList item) {
+    /*public void setItem(int position, ChallengeList item) {
         items.set(position, item);
-    }
+    }*/
 
 
     public int getItemCount() {
@@ -59,7 +62,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //뷰홀더가 재사용될 때 호출되므로 뷰객체는 기존 것을 그대로 사용하고 데이터만 바꿔줌.
-        ChallengeList item = items.get(position);
+        ChallengeItem item = items.get(position);
         holder.setItem(item);
     }
 
@@ -84,7 +87,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
             });
         }
 
-        public void setItem(ChallengeList item){
+        public void setItem(ChallengeItem item){
             textView.setText(item.getTitle());
         }
 

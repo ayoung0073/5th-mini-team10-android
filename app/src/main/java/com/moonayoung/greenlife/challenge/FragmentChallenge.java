@@ -3,6 +3,7 @@ package com.moonayoung.greenlife.challenge;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,19 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.moonayoung.greenlife.api.Challenge;
+import com.moonayoung.greenlife.api.ChallengeItem;
+import com.moonayoung.greenlife.api.RetrofitClient;
+import com.moonayoung.greenlife.api.SubChallenge;
 import com.moonayoung.greenlife.camera.CameraActivity;
 import com.moonayoung.greenlife.R;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 //챌린지 주제 리스트 프래그먼트
 
@@ -26,6 +38,9 @@ public class FragmentChallenge extends Fragment {
     RecyclerView challengeListView;
     ChallengeAdapter adapter;
     FragmentManager fragmentManager = null;
+    private Gson mGson;
+    boolean response_success;
+    List<ChallengeItem> response_challenges;
 
     @Nullable
     @Override
@@ -35,11 +50,34 @@ public class FragmentChallenge extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false); //linearlayout으로 리싸이클러뷰 설정
         challengeListView.setLayoutManager(layoutManager);
         //ChallengeList challengeList = new ChallengeList(); // ChallengeData로 바꿈
-        ChallengeData data = new ChallengeData();
-        adapter = new ChallengeAdapter();
-        adapter.setItems(data.challengeLists);
-        //adapter.setItems(challengeList.getChallengeLists()); // 데이터 저장되어 있음 Title, content, 세부 챌린지 배열
-        challengeListView.setAdapter(adapter); // 어댑터에 설정 -> 리싸이클러뷰에 챌린지 목록 보임
+        //ChallengeData data = new ChallengeData();
+
+        final Call<Challenge> challenges = RetrofitClient.getApiService().getChallenges();
+        challenges.enqueue(new Callback<Challenge>() {
+            @Override
+            public void onResponse(Call<Challenge> call, Response<Challenge> response) {
+                if(response.isSuccessful()){
+                    Challenge challenge = response.body();
+                    response_success = challenge.getSuccess();
+                    response_challenges = challenge.getChallenge();
+//                    Log.d("이잉",response_challenges.get(0).getTitle());
+//                    Log.d("오잉","glgl");
+                        Log.d("히히",response_challenges.get(0).getTitle());
+                    adapter = new ChallengeAdapter();
+                    adapter.setItems(response_challenges);
+                    //adapter.setItems(challengeList.getChallengeLists()); // 데이터 저장되어 있음 Title, content, 세부 챌린지 배열
+                    challengeListView.setAdapter(adapter); // 어댑터에 설정 -> 리싸이클러뷰에 챌린지 목록 보임
+                } else{
+                    Log.d("연결X",""+response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Challenge> call, Throwable t) {
+                Log.d("ChallengeFragment1_Test","안됨되뫼");
+
+            }
+        });
 
         Button joinBT = rootView.findViewById(R.id.joinBT);
 
@@ -67,13 +105,13 @@ public class FragmentChallenge extends Fragment {
             }
         });
 
-        adapter.setOnItemClickListener(new onChallengeListClickListener() {
+        /*adapter.setOnItemClickListener(new onChallengeListClickListener() {
             @Override
             public void onItemClick(ChallengeAdapter.ViewHolder holder, View view, int position) { // 챌린지 목록 각각 눌렀을 때
 
                 //fragmentStack.push(currentFragment); //프래그먼트 바뀌기 전에 현재 프래그먼트 스택에 저장
 
-                ChallengeList item = adapter.getItem(position);
+                //ChallengeList item = adapter.getItem(position);
                 position++;
                 //Toast.makeText(getApplicationContext(), position + "번째 목록 선택됨",Toast.LENGTH_LONG).show();
                 fragmentManager = getFragmentManager();
@@ -97,7 +135,7 @@ public class FragmentChallenge extends Fragment {
                 }
 
             }
-        });
+        });*/
         return rootView;
 
     }

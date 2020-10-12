@@ -33,11 +33,11 @@ public interface ApiService {
 
 
     // 여러개 객체 응답?
-    @GET("/challenges") // 챌린지목록(추천챌린지포함)
-    Call<List<Challenge>> getChallenges();
+    @GET("/challenge/all") // 챌린지목록(추천챌린지포함)
+    Call<Challenge> getChallenges();
 
-    @GET("/challenge/{challengeId}") // 챌린지상세
-    Call<List<SubChallenge>> getChallenges(@Path("challengedId") String challengeId);
+    @GET("/challenge/detail/{id}") // 챌린지상세
+    Call<List<SubChallenge>> getDetatilChallenges(@Path("id") String challengeId);
 
     @PUT("/challenge") // 요청 바디로(참여버튼) -> 해당챌린지Id 보냄
     Call<Challenge> putData(@Body Challenge param,@HeaderMap HashMap<String,String> map);

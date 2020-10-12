@@ -1,4 +1,4 @@
-package com.moonayoung.greenlife.challenge;
+/*package com.moonayoung.greenlife.challenge;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -58,36 +58,37 @@ public class ChallengeFragment5 extends Fragment {
             }
         });*/
 
-        adapter.setOnItemClickListener(new DetailChallengeAdapter.onDetailChallengeListClickListener() {
-            @Override
-            public void onItemClick(DetailChallengeAdapter.ViewHolder holder, View view, int position) { //세부 챌린지 목록 각각 눌렀을 때
-                /*ChallengeList item = adapter.getItem(position);
-                position++;*/
-                //Toast.makeText(getApplicationContext(), position + "번째 목록 선택됨",Toast.LENGTH_LONG).show();
-
-                FragmentManager fragmentManager = getFragmentManager();
-                switch (position) {
-                    case 1: // 첫번째 click
-                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment1()).commit(); //1번째 챌린지 프래그먼트 띄움
-                        break;
-                    case 2:
-                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment2()).commit();
-                        break;
-                    case 3:
-                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment3()).commit();
-                        break;
-                    case 4:
-                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment4()).commit();
-                        break;
-                    case 5:
-                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment5()).commit();
-                        break;
-                }
-            }
-
-        });
-
+//        adapter.setOnItemClickListener(new DetailChallengeAdapter.onDetailChallengeListClickListener() {
+//            @Override
+//            public void onItemClick(DetailChallengeAdapter.ViewHolder holder, View view, int position) { //세부 챌린지 목록 각각 눌렀을 때
+//                /*ChallengeList item = adapter.getItem(position);
+//                position++;*/
+//                //Toast.makeText(getApplicationContext(), position + "번째 목록 선택됨",Toast.LENGTH_LONG).show();
+//
+//                FragmentManager fragmentManager = getFragmentManager();
+//                switch (position) {
+//                    case 1: // 첫번째 click
+//                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment1()).commit(); //1번째 챌린지 프래그먼트 띄움
+//                        break;
+//                    case 2:
+//                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment2()).commit();
+//                        break;
+//                    case 3:
+//                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment3()).commit();
+//                        break;
+//                    case 4:
+//                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment4()).commit();
+//                        break;
+//                    case 5:
+//                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment5()).commit();
+//                        break;
+//                }
+//            }
+//
+//        });
+/*
         return rootView;
     }
 
 }
+*/
