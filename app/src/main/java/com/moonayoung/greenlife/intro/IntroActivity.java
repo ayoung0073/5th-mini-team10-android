@@ -29,6 +29,7 @@ public class IntroActivity extends AppCompatActivity {
     JoinFragment joinFragment;
 
     ViewPager container;
+    PagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +71,16 @@ public class IntroActivity extends AppCompatActivity {
             }
         }
 
-        PagerAdapter adapter = new PagerAdapter(manager);
-        adapter.addItem(introFragment1); // 뷰페이저에 프래그먼트 담기
-        adapter.addItem(introFragment2);
-        adapter.addItem(introFragment3);
+        adapter = new PagerAdapter(manager);
+        ((PagerAdapter) adapter).addItem(introFragment1); // 뷰페이저에 프래그먼트 담기
+        ((PagerAdapter) adapter).addItem(introFragment2);
+        ((PagerAdapter) adapter).addItem(introFragment3);
 
 
         container.setAdapter(adapter);
+    }
+    public void skip(){
+        container.setCurrentItem(2);
     }
 
     public void setFragment(String str){

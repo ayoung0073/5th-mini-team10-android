@@ -60,7 +60,7 @@ public class ShareActivity extends AppCompatActivity {
         });
 
 
-      
+
     }
     public void upload(Bitmap bitmap){
         //RetrofitClient.getApiService().postPhoto(,)

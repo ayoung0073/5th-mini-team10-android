@@ -1,9 +1,11 @@
-/*package com.moonayoung.greenlife.challenge;
+package com.moonayoung.greenlife.challenge;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moonayoung.greenlife.R;
+import com.moonayoung.greenlife.camera.CameraActivity;
 import com.moonayoung.greenlife.challenge.ChallengeData;
 import com.moonayoung.greenlife.challenge.ChallengeFragment1;
 import com.moonayoung.greenlife.challenge.ChallengeFragment2;
@@ -28,6 +31,8 @@ public class ChallengeFragment3 extends Fragment {
     ChallengeList selectedchallengeList = new ChallengeList(); //선택된 주제의 챌린지리스트
     RecyclerView detailchallengeListView;
     DetailChallengeAdapter adapter;
+
+    ChallengeFragment3 me = this;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,20 +52,32 @@ public class ChallengeFragment3 extends Fragment {
         //adapter.setItems(challengeList.getChallengeLists()); // 데이터 저장되어 있음 Title, content, 세부 챌린지 배열
         detailchallengeListView.setAdapter(adapter); // 어댑터에 설정 -> 리싸이클러뷰에 챌린지 목록 보임
 
-        /*Button joinBT = rootView.findViewById(R.id.joinBT);
+        Button backBT = rootView.findViewById(R.id.backBT); // 1012 백버튼
+        backBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    getActivity().getSupportFragmentManager().beginTransaction().remove(me).commit();
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
+            }
+        });
+
+        Button joinBT = rootView.findViewById(R.id.joinBT);
         joinBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), CameraActivity.class);
                 getActivity().startActivityForResult(intent, 101);
             }
-        });*/
+        });
 
 //        adapter.setOnItemClickListener(new DetailChallengeAdapter.onDetailChallengeListClickListener() {
 //            @Override
 //            public void onItemClick(DetailChallengeAdapter.ViewHolder holder, View view, int position) { //세부 챌린지 목록 각각 눌렀을 때
-//                /*ChallengeList item = adapter.getItem(position);
-//                position++;*/
+//                ChallengeList item = adapter.getItem(position);
+//                position++;
 //                //Toast.makeText(getApplicationContext(), position + "번째 목록 선택됨",Toast.LENGTH_LONG).show();
 //
 //                FragmentManager fragmentManager = getFragmentManager();
@@ -84,9 +101,7 @@ public class ChallengeFragment3 extends Fragment {
 //            }
 //
 //        });
-/*
         return rootView;
     }
 
 }
-*/

@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String token;
 
+    FragmentTransaction transaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         new AlarmSetting(getApplicationContext()).Alarm();
 
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frameLayout, fragmentChallenge).commitAllowingStateLoss();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -73,9 +74,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
         Intent intent = new Intent(this, LoadingActivity.class);
         startActivityForResult(intent, 101);
+    }
+
+    public void back_setting(){
+        transaction.replace(R.id.frameLayout, fragmentSetting).commitAllowingStateLoss();
     }
 
     @Override
