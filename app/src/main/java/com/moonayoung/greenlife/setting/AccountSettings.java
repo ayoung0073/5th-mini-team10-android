@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.moonayoung.greenlife.MainActivity;
 import com.moonayoung.greenlife.R;
 
 public class AccountSettings extends AppCompatActivity {
@@ -16,6 +17,7 @@ public class AccountSettings extends AppCompatActivity {
 
     FragmentSetting fragment;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,13 +27,14 @@ public class AccountSettings extends AppCompatActivity {
 
         //fragment = (FragmentSetting) getSupportFragmentManager().findFragmentById(R.id.frameLayout);
 
-        btn_back = findViewById(R.id.btn_back);
+        btn_back = findViewById(R.id.backBT);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
                 /*Intent intent = new Intent(AccountSettings.this, FragmentSetting.class);
                 startActivity(intent);*/
+
             }
         });
 
