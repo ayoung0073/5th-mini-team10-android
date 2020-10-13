@@ -1,4 +1,4 @@
-/*package com.moonayoung.greenlife.challenge;
+package com.moonayoung.greenlife.challenge;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,8 +21,10 @@ import com.google.gson.JsonArray;
 import com.moonayoung.greenlife.api.ApiService;
 import com.moonayoung.greenlife.api.RetrofitClient;
 import com.moonayoung.greenlife.api.SubChallenge;
+import com.moonayoung.greenlife.api.SubChallengeItem;
 import com.moonayoung.greenlife.camera.CameraActivity;
 import com.moonayoung.greenlife.R;
+import com.moonayoung.greenlife.intro.LoginFragment;
 
 import java.io.IOException;
 import java.util.List;
@@ -36,90 +38,69 @@ import retrofit2.Retrofit;
 
 public class ChallengeFragment1 extends Fragment {
 
-    ChallengeData data = new ChallengeData();
-    ChallengeList selectedchallengeList = new ChallengeList(); //선택된 주제의 챌린지리스트
     RecyclerView detailchallengeListView;
     DetailChallengeAdapter adapter;
-//    RetrofitClient retrofitClient;
+    LoginFragment loginFragment;
+    SubChallenge subChallenge;
+    String challengeId;
+    String token;
+    String response_title;
+    String response_imageUrl;
+    String response_text;
+    Bundle bundle = getArguments();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_challenge1,container,false);
-        ImageButton backButton = rootView.findViewById(R.id.backButton); //뒤로가기 버튼
-        TextView content = rootView.findViewById(R.id.content1);
-        content.setText(data.challengeLists.get(0).getContent());
+        final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_challenge1, container, false);
 
-        Call<List<SubChallenge>> subchallenges = RetrofitClient.getApiService().getDetatilChallenges("5f7c966c0e282281277004fd");
-        subchallenges.enqueue(new Callback<List<SubChallenge>>() {
+        if(bundle != null){
+            challengeId = bundle.getString("response_id"); //Name 받기.
+        }
+        loginFragment = new LoginFragment();
+        token = loginFragment.getToken();
+
+        Call<SubChallenge> subChallenges = RetrofitClient.getApiService()
+                .getDetatilChallenges(challengeId, token);
+        subChallenges.enqueue(new Callback<SubChallenge>() {
             @Override
-            public void onResponse(Call<List<SubChallenge>> call, Response<List<SubChallenge>> response) {
-                try {
-                    Log.d("ChallengeFragment1_Test","통신");
-                } catch (Exception e) {
-                    e.printStackTrace();
+            public void onResponse(Call<SubChallenge> call, Response<SubChallenge> response) {
+                if (response.isSuccessful()) {
+                    subChallenge = response.body();
+                    response_title = subChallenge.getTitle(); //주제 제목
+                    response_imageUrl = subChallenge.getImageUrl(); //주제 이미지
+                    response_text = subChallenge.getText(); //주제 소개? 멘트
+
+                    Log.d("세부통신","통신성공");
+                    Log.d("아이디",challengeId);
+                    Log.d("토큰",token);
+                    Log.d("주제",""+subChallenge.getSubchallenges().size());
+
+                    TextView content = rootView.findViewById(R.id.content1);
+                    content.setText(response_text); //주제 소개 문구
+
+                    detailchallengeListView = (RecyclerView) rootView.findViewById(R.id.detail_challengeListView);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false); //linearlayout으로 리싸이클러뷰 설정
+                    detailchallengeListView.setLayoutManager(layoutManager);
+                    adapter = new DetailChallengeAdapter(getActivity()); //디테일챌린지어댑터 클래스에 문맥 보냄(현재 프래그먼트에 팝업 띄우기 위해)
+                    adapter.setChallengeList(subChallenge.getSubchallenges());
+                    //adapter.setItems(challengeList.getChallengeLists()); // 데이터 저장되어 있음 Title, content, 세부 챌린지 배열
+                    detailchallengeListView.setAdapter(adapter); // 어댑터에 설정 -> 리싸이클러뷰에 챌린지 목록 보임
+
+                } else {
+                    Log.d("응답이상", "" + response.code());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<SubChallenge>> call, Throwable t) {
-                Log.d("ChallengeFragment1_Test","안됨되뫼");
-
+            public void onFailure(Call<SubChallenge> call, Throwable t) {
+                Log.d("통신오류", "안됨되뫼");
             }
         });
 
-        detailchallengeListView = (RecyclerView)rootView.findViewById(R.id.detail_challengeListView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false); //linearlayout으로 리싸이클러뷰 설정
-        detailchallengeListView.setLayoutManager(layoutManager);
-        //ChallengeList challengeList = new ChallengeList(); // ChallengeData로 바꿈
-        ChallengeData data = new ChallengeData();
-        selectedchallengeList = data.challengeLists.get(0);
-        adapter = new DetailChallengeAdapter(getActivity()); //디테일챌린지어댑터 클래스에 문맥 보냄(현재 프래그먼트에 팝업 띄우기 위해)
-        adapter.setChallengeList(selectedchallengeList);
-        //adapter.setItems(challengeList.getChallengeLists()); // 데이터 저장되어 있음 Title, content, 세부 챌린지 배열
-        detailchallengeListView.setAdapter(adapter); // 어댑터에 설정 -> 리싸이클러뷰에 챌린지 목록 보임
 
-        /*Button joinBT = rootView.findViewById(R.id.joinBT);
-        joinBT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), CameraActivity.class);
-                getActivity().startActivityForResult(intent, 101);
-            }
-        });*/
-
-//        adapter.setOnItemClickListener(new DetailChallengeAdapter.onDetailChallengeListClickListener() {
-//            @Override
-//            public void onItemClick(DetailChallengeAdapter.ViewHolder holder, View view, int position) { //세부 챌린지 목록 각각 눌렀을 때
-//                /*ChallengeList item = adapter.getItem(position);
-//                position++;*/
-//                //Toast.makeText(getApplicationContext(), position + "번째 목록 선택됨",Toast.LENGTH_LONG).show();
-//
-//                FragmentManager fragmentManager = getFragmentManager();
-//                switch (position) {
-//                    case 1: // 첫번째 click
-//                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment1()).commit(); //1번째 챌린지 프래그먼트 띄움
-//                        break;
-//                    case 2:
-//                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment2()).commit();
-//                        break;
-//                    case 3:
-//                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment3()).commit();
-//                        break;
-//                    case 4:
-//                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment4()).commit();
-//                        break;
-//                    case 5:
-//                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment5()).commit();
-//                        break;
-//                }
-//            }
-//
-//        });
-
-/*        return rootView;
+        return rootView;
     }
 
 }
-*/

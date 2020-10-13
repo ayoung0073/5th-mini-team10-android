@@ -21,13 +21,10 @@ public class RetrofitClient {
     public static ApiService getApiService(){return getInstance().create(ApiService.class);}
 
     private static Retrofit getInstance(){
-
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .connectTimeout(1, TimeUnit.MINUTES)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(15, TimeUnit.SECONDS)
-
-
                 .addInterceptor(
                 new Interceptor() {
                 @Override
@@ -64,6 +61,8 @@ public class RetrofitClient {
 
     }
 
-
+    public String getBaseUrl(){
+        return BASE_URL;
+    }
 
 }

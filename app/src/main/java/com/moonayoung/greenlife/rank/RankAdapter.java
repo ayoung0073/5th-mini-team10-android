@@ -45,7 +45,7 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public RankAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         //getSystemService에서 참조하는 것과 동일한 코드
@@ -86,11 +86,10 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.ViewHolder> {
             });
         }
 
-        public void setItem(RankList item){
-
-            rankTextView.setText(item.getRanking());
+        public void setItem(RankList item) {
+            rankTextView.setText("" + item.getRanking());
             nicknameTextView.setText(item.getNickname());
-            participateTextView.setText(item.getParticipate());
+            participateTextView.setText("" + item.getParticipate());
 
         }
 

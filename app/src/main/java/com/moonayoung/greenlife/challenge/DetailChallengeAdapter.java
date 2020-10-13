@@ -15,15 +15,19 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moonayoung.greenlife.R;
+import com.moonayoung.greenlife.api.ChallengeItem;
+import com.moonayoung.greenlife.api.SubChallenge;
+import com.moonayoung.greenlife.api.SubChallengeItem;
 import com.moonayoung.greenlife.camera.CameraActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallengeAdapter.ViewHolder> {
 
     Context rootFragment; //상위 프래그먼트의 문맥 얻어옴(거기에 팝업 띄우기 위해)
     onDetailChallengeListClickListener listener;
-    ChallengeList selectedchallengeList = new ChallengeList();
+    List<SubChallengeItem> items;
 
     public DetailChallengeAdapter(Context rootFragment){
         this.rootFragment = rootFragment;
@@ -40,20 +44,21 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.setItem(selectedchallengeList.getChallenge()[position]);
+        SubChallengeItem item = items.get(position);
+        holder.setItem(item);
     }
 
     @Override
     public int getItemCount() {
-        return selectedchallengeList.challenge.length;
+        return items.size();
     }
     public void setOnItemClickListener(onDetailChallengeListClickListener listener) { //아이템뷰에 onClickListener 설정하기
         this.listener = listener;
     }
 
     //선택한 주제의 챌린지 리스트 가져오기
-    public void setChallengeList(ChallengeList list){
-        this.selectedchallengeList = list;
+    public void setChallengeList(List<SubChallengeItem> list){
+        this.items = list;
     }
 
     public interface onDetailChallengeListClickListener {
@@ -84,13 +89,14 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
             });
         }
 
-        public void setItem(String item) {
-            textView.setText(item);
+        public void setItem(SubChallengeItem item) {
+            textView.setText(item.getTitle());
+
             joinBT.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) { //팝업창
                     AlertDialog.Builder ad = new AlertDialog.Builder(rootFragment);
-                    ad.setTitle("님"); //username
+                    ad.setTitle("님"); //usㄺㅁername
                     ad.setMessage("참여 감사합니다 :) \n 당신의 실천이 \n 일상이 되길 바랍니다.");
                     ad.setPositiveButton("사진으로 인증하기",
                             new DialogInterface.OnClickListener() {

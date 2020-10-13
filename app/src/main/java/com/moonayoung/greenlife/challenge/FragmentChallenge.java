@@ -24,6 +24,7 @@ import com.moonayoung.greenlife.api.RetrofitClient;
 import com.moonayoung.greenlife.api.SubChallenge;
 import com.moonayoung.greenlife.camera.CameraActivity;
 import com.moonayoung.greenlife.R;
+import com.moonayoung.greenlife.intro.LoginFragment;
 
 import java.util.List;
 
@@ -41,40 +42,88 @@ public class FragmentChallenge extends Fragment {
     private Gson mGson;
     boolean response_success;
     List<ChallengeItem> response_challenges;
+    ChallengeFragment1 challengeFragment1;
+    ChallengeFragment2 challengeFragment2;
+    ChallengeFragment3 challengeFragment3;
+    ChallengeFragment4 challengeFragment4;
+    ChallengeFragment5 challengeFragment5;
+    Bundle bundle = new Bundle();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_challenge, container, false);
-        challengeListView = (RecyclerView)rootView.findViewById(R.id.challengListView);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_challenge, container, false);
+        challengeListView = (RecyclerView) rootView.findViewById(R.id.challengListView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false); //linearlayout으로 리싸이클러뷰 설정
         challengeListView.setLayoutManager(layoutManager);
-        //ChallengeList challengeList = new ChallengeList(); // ChallengeData로 바꿈
-        //ChallengeData data = new ChallengeData();
 
         final Call<Challenge> challenges = RetrofitClient.getApiService().getChallenges();
         challenges.enqueue(new Callback<Challenge>() {
             @Override
             public void onResponse(Call<Challenge> call, Response<Challenge> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Challenge challenge = response.body();
                     response_success = challenge.getSuccess();
                     response_challenges = challenge.getChallenge();
-//                    Log.d("이잉",response_challenges.get(0).getTitle());
-//                    Log.d("오잉","glgl");
-                        Log.d("히히",response_challenges.get(0).getTitle());
-                    adapter = new ChallengeAdapter();
+                    Log.d("하하", response_challenges.get(0).getTitle());
+                    Log.d("히히", response_challenges.get(0).get_id());
+                    adapter = new ChallengeAdapter(getActivity(),response_challenges);
                     adapter.setItems(response_challenges);
                     //adapter.setItems(challengeList.getChallengeLists()); // 데이터 저장되어 있음 Title, content, 세부 챌린지 배열
                     challengeListView.setAdapter(adapter); // 어댑터에 설정 -> 리싸이클러뷰에 챌린지 목록 보임
-                } else{
-                    Log.d("연결X",""+response.code());
+                    adapter.setOnItemClickListener(new onChallengeListClickListener() {
+                        @Override
+                        public void onItemClick(ChallengeAdapter.ViewHolder holder, View view, int position) { // 챌린지 목록 각각 눌렀을 때
+                            Log.d("response_id",response_challenges.get(0).get_id());
+
+                            ChallengeItem item = adapter.getItem(position);
+                            position++;
+
+                            FragmentManager fragmentManager = getFragmentManager();
+
+                            switch (position) {
+                                case 1: // 첫번째 click
+                                    challengeFragment1 = new ChallengeFragment1();
+                                    bundle.putString("response_id",response_challenges.get(0).get_id());
+                                    challengeFragment1.setArguments(bundle);
+                                    fragmentManager.beginTransaction().replace(R.id.mainContainer, challengeFragment1).commit(); //1번째 챌린지 프래그먼트 띄움
+                                    break;
+                                case 2:
+                                    challengeFragment2 = new ChallengeFragment2();
+                                    bundle.putString("response_id",response_challenges.get(1).get_id());
+                                    challengeFragment2.setArguments(bundle);
+                                    fragmentManager.beginTransaction().replace(R.id.mainContainer, challengeFragment2).commit();
+                                    break;
+                                case 3:
+                                    challengeFragment3 = new ChallengeFragment3();
+                                    bundle.putString("response_id",response_challenges.get(2).get_id());
+                                    challengeFragment3.setArguments(bundle);
+                                    fragmentManager.beginTransaction().replace(R.id.mainContainer, challengeFragment3).commit();
+                                    break;
+                                case 4:
+                                    challengeFragment4 = new ChallengeFragment4();
+                                    bundle.putString("response_id",response_challenges.get(3).get_id());
+                                    challengeFragment4.setArguments(bundle);
+                                    fragmentManager.beginTransaction().replace(R.id.mainContainer, challengeFragment4).commit();
+                                    break;
+                                case 5:
+                                    challengeFragment5 = new ChallengeFragment5();
+                                    bundle.putString("response_id",response_challenges.get(4).get_id());
+                                    challengeFragment5.setArguments(bundle);
+                                    fragmentManager.beginTransaction().replace(R.id.mainContainer, challengeFragment5).commit();
+                                    break;
+                            }
+
+                        }
+                    });
+                } else {
+                    Log.d("연결X", "" + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<Challenge> call, Throwable t) {
-                Log.d("ChallengeFragment1_Test","안됨되뫼");
+                Log.d("ChallengeFragment1_Test", "안됨되뫼");
 
             }
         });
@@ -105,40 +154,10 @@ public class FragmentChallenge extends Fragment {
             }
         });
 
-        /*adapter.setOnItemClickListener(new onChallengeListClickListener() {
-            @Override
-            public void onItemClick(ChallengeAdapter.ViewHolder holder, View view, int position) { // 챌린지 목록 각각 눌렀을 때
 
-                //fragmentStack.push(currentFragment); //프래그먼트 바뀌기 전에 현재 프래그먼트 스택에 저장
 
-                //ChallengeList item = adapter.getItem(position);
-                position++;
-                //Toast.makeText(getApplicationContext(), position + "번째 목록 선택됨",Toast.LENGTH_LONG).show();
-                fragmentManager = getFragmentManager();
-
-                switch (position) {
-                    case 1: // 첫번째 click
-                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment1()).commit(); //1번째 챌린지 프래그먼트 띄움
-                        break;
-                    case 2:
-                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment2()).commit();
-                        break;
-                    case 3:
-                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment3()).commit();
-                        break;
-                    case 4:
-                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment4()).commit();
-                        break;
-                    case 5:
-                        fragmentManager.beginTransaction().replace(R.id.mainContainer, new ChallengeFragment5()).commit();
-                        break;
-                }
-
-            }
-        });*/
         return rootView;
 
     }
-
 
 }

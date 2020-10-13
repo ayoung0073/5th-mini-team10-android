@@ -37,7 +37,7 @@ public interface ApiService {
     Call<Challenge> getChallenges();
 
     @GET("/challenge/detail/{id}") // 챌린지상세
-    Call<List<SubChallenge>> getDetatilChallenges(@Path("id") String challengeId);
+    Call<SubChallenge> getDetatilChallenges(@Header("token") String token, @Path("id") String challengeId);
 
     @PUT("/challenge") // 요청 바디로(참여버튼) -> 해당챌린지Id 보냄
     Call<Challenge> putData(@Body Challenge param,@HeaderMap HashMap<String,String> map);

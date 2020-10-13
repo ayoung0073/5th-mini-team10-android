@@ -11,16 +11,19 @@ public class Challenge {
     @SerializedName("challenge")
     private List<ChallengeItem> challenge;
 
-    public boolean getSuccess(){
+    public boolean getSuccess() {
         return success;
     }
-    public void setSuccess(boolean success){
+
+    public void setSuccess(boolean success) {
         this.success = success;
     }
-    public List<ChallengeItem> getChallenge(){
+
+    public List<ChallengeItem> getChallenge() {
         return challenge;
     }
-    public void setChallenge(List<ChallengeItem> challenge){
+
+    public void setChallenge(List<ChallengeItem> challenge) {
         this.challenge = challenge;
     }
 }

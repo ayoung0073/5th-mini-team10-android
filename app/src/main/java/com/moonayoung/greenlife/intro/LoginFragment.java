@@ -36,6 +36,7 @@ public class LoginFragment extends Fragment {
     EditText email;
     EditText passwd;
     TextView warning;
+    private String token; //세부 챌린지에서 사용자 토큰 접근하기 위한 변수
 
 //    AccountManager am = AccountManager.get(getContext());
 
@@ -100,10 +101,13 @@ public class LoginFragment extends Fragment {
                     Log.d("로그인 성공", "   "+loginPost.isSuccess());
                     Log.d("로그인 닉넴", "   "+loginPost.getNickname());
                     Log.d("로그인 토큰", "     "+loginPost.getToken());
+
+                    token = loginPost.getToken();
                 }
                 else{
                     Toast.makeText(getContext(),"응답안옴",Toast.LENGTH_LONG).show();
                 }
+
             }
 
             @Override
@@ -111,7 +115,9 @@ public class LoginFragment extends Fragment {
             }
         });
     }
-
+    public String getToken(){
+        return token;
+    }
 
     }
 

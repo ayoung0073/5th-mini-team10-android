@@ -21,7 +21,7 @@ public class RankActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank);
         rankListView = (RecyclerView)findViewById(R.id.rank_RecyclerView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false); //linearlayout으로 리싸이클러뷰 설정
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false); //linearlayout으로 리싸이클러뷰 설정
         rankListView.setLayoutManager(layoutManager);
         RankData data = new RankData();
         adapter = new RankAdapter();
