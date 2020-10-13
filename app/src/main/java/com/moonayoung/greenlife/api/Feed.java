@@ -3,7 +3,6 @@ package com.moonayoung.greenlife.api;
 public class Feed {
     int imageId;
     String imageUrl;
-    String nickname;
 
     public int getImageId() {
         return imageId;
@@ -21,11 +20,6 @@ public class Feed {
         this.imageUrl = imageUrl;
     }
 
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public boolean isSuccess() { return true;
     }
 }

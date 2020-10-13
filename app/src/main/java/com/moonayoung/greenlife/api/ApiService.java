@@ -42,14 +42,14 @@ public interface ApiService {
     @PUT("/challenge") // 요청 바디로(참여버튼) -> 해당챌린지Id 보냄
     Call<Challenge> putData(@Body Challenge param,@HeaderMap HashMap<String,String> map);
 
-    @POST("/photo") // 사진업로드 // 아직 사진객체 ?
-    Call<String> postPhoto(@Body Bitmap param);
+    @POST("feed/upload") // 사진업로드 // 아직 사진객체 ?
+    Call<UploadPost> postPhoto(@Header("token") String token, @Body Bitmap param);
 
     @GET("/feed") // feed 확인
-    Call<Feed> getFeed();
+    Call<Feed> feedUpload(@Header("Content-Type") String content);
 
-    @GET("/rank") // 명예의 전당
-    Call<Rank> getRank();
+    @GET("user/rank") // 명예의 전당
+    Call<Rank> getRank(@Header("Content-Type") String content);
 
 
 }
