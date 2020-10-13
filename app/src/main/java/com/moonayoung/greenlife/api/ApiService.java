@@ -48,8 +48,8 @@ public interface ApiService {
     @GET("/feed") // feed 확인
     Call<Feed> getFeed();
 
-    @GET("/rank") // 명예의 전당
-    Call<Rank> getRank();
+    @GET("user/rank") // 명예의 전당
+    Call<Rank> getRank(@Header("Content-Type") String content);
 
 
 }

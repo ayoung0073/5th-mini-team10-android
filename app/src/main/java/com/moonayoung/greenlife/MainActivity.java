@@ -16,6 +16,7 @@ import com.moonayoung.greenlife.alarm.AlarmSetting;
 import com.moonayoung.greenlife.FragmentFeed;
 import com.moonayoung.greenlife.api.ApiService;
 import com.moonayoung.greenlife.challenge.FragmentChallenge;
+import com.moonayoung.greenlife.rank.RankActivity;
 import com.moonayoung.greenlife.setting.FragmentSetting;
 import com.moonayoung.greenlife.intro.IntroActivity;
 import com.moonayoung.greenlife.intro.LoadingActivity;
@@ -39,10 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
     FragmentTransaction transaction;
 
+    MainActivity me = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         new AlarmSetting(getApplicationContext()).Alarm();
 
@@ -59,7 +63,9 @@ public class MainActivity extends AppCompatActivity {
                         transaction.replace(R.id.frameLayout, fragmentChallenge).commitAllowingStateLoss();
                         break;
                     case R.id.feedItem:
-                        transaction.replace(R.id.frameLayout, fragmentFeed).commitAllowingStateLoss();
+                        //transaction.replace(R.id.frameLayout, fragmentFeed).commitAllowingStateLoss();
+                        Intent intent = new Intent(me, RankActivity.class);
+                        startActivity(intent); // 임시로 명전 띄우기
                         break;
                     case R.id.settingItem:
                         transaction.replace(R.id.frameLayout, fragmentSetting).commitAllowingStateLoss();

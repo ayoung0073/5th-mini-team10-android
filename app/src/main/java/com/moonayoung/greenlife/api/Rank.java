@@ -1,31 +1,28 @@
 package com.moonayoung.greenlife.api;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+
 public class Rank {
-    int ranking;
-    String nickname;
-    int participate;
+    @SerializedName("success")
+    private boolean success;
+    @SerializedName("user")
+    private ArrayList<RankUser> user;
 
-    public int getRanking() {
-        return ranking;
+    public boolean isSuccess() {
+        return success;
     }
 
-    public void setRanking(int ranking) {
-        this.ranking = ranking;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
-    public String getNickname() {
-        return nickname;
+    public ArrayList<RankUser> getUser() {
+        return user;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public int getParticipate() {
-        return participate;
-    }
-
-    public void setParticipate(int participate) {
-        this.participate = participate;
+    public void setUser(ArrayList<RankUser> user) {
+        this.user = user;
     }
 }

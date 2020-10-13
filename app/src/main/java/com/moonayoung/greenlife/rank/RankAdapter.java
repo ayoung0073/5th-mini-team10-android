@@ -9,27 +9,28 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moonayoung.greenlife.R;
+import com.moonayoung.greenlife.api.RankUser;
 
 import java.util.ArrayList;
 
 public class RankAdapter extends RecyclerView.Adapter<RankAdapter.ViewHolder> {
 
-    ArrayList<RankList> items = new ArrayList();
+    ArrayList<RankUser> items = new ArrayList();
     onRankListClickListener listener;
 
-    public void addItem(RankList item) {
+    public void addItem(RankUser item) {
         items.add(item);
     }
 
-    public void setItems(ArrayList<RankList> items) { //ArrayList전체를 설정할 수 있는 함수
+    public void setItems(ArrayList<RankUser> items) { //ArrayList전체를 설정할 수 있는 함수
         this.items = items;
     }
 
-    public RankList getItem(int position) {
+    public RankUser getItem(int position) {
         return items.get(position);
     }
 
-    public void setItem(int position, RankList item) {
+    public void setItem(int position, RankUser item) {
         items.set(position, item);
     }
 
@@ -57,7 +58,7 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RankAdapter.ViewHolder holder, int position) {
         //뷰홀더가 재사용될 때 호출되므로 뷰객체는 기존 것을 그대로 사용하고 데이터만 바꿔줌.
-        RankList item = items.get(position);
+        RankUser item = items.get(position);
         holder.setItem(item);
     }
 
@@ -86,11 +87,10 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.ViewHolder> {
             });
         }
 
-        public void setItem(RankList item){
-
-            rankTextView.setText(item.getRanking());
-            nicknameTextView.setText(item.getNickname());
-            participateTextView.setText(item.getParticipate());
+        public void setItem(RankUser item){
+            rankTextView.setText(""+item.get_id());
+            nicknameTextView.setText(" "+item.getNickname()+ " 님");
+            participateTextView.setText(item.getWeekChallengeCount()+"회");
 
         }
 
