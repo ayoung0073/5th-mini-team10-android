@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
                         transaction.replace(R.id.frameLayout, fragmentChallenge).commitAllowingStateLoss();
                         break;
                     case R.id.feedItem:
-                        //transaction.replace(R.id.frameLayout, fragmentFeed).commitAllowingStateLoss();
-                        Intent intent = new Intent(me, RankActivity.class);
-                        startActivity(intent); // 임시로 명전 띄우기
+                        transaction.replace(R.id.frameLayout, fragmentFeed).commitAllowingStateLoss();
+/*                        Intent intent = new Intent(me, RankActivity.class);
+                        startActivity(intent); // 임시로 명전 띄우기*/
                         break;
                     case R.id.settingItem:
                         transaction.replace(R.id.frameLayout, fragmentSetting).commitAllowingStateLoss();
