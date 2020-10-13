@@ -46,7 +46,7 @@ public interface ApiService {
     Call<UploadPost> postPhoto(@Header("token") String token, @Body Bitmap param);
 
     @GET("/feed") // feed 확인
-    Call<Feed> getFeed();
+    Call<Feed> feedUpload(@Header("Content-Type") String content);
 
     @GET("user/rank") // 명예의 전당
     Call<Rank> getRank(@Header("Content-Type") String content);
