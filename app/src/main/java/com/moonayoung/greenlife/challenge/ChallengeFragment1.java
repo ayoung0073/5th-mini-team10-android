@@ -78,9 +78,9 @@ public class ChallengeFragment1 extends Fragment {
             }
         });
 
-        Call<SubChallenge> subChallenges = RetrofitClient.getApiService()
-                .getDetatilChallenges(token, challengeId);
-        subChallenges.enqueue(new Callback<SubChallenge>() {
+        RetrofitClient.getApiService()
+                .getDetatilChallenges(token, challengeId)
+                .enqueue(new Callback<SubChallenge>() {
             @Override
             public void onResponse(Call<SubChallenge> call, Response<SubChallenge> response) {
                 if (response.isSuccessful()) {
@@ -93,7 +93,7 @@ public class ChallengeFragment1 extends Fragment {
                     Log.d("아이디",challengeId);
                     Log.d("토큰",token);
                     Log.d("주제",""+subChallenge.getSubchallenges().size());
-
+                    Log.d("세부아이디잉",subChallenge.getSubchallenges().get(0).get_id());
                     TextView content = rootView.findViewById(R.id.content1);
                     TextView challenge= rootView.findViewById(R.id.challenge_textView);
                     ImageView imageView = rootView.findViewById(R.id.imageView);

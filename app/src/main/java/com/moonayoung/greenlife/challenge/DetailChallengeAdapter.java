@@ -41,7 +41,8 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
     static Participate response_participate;
     static List<SubChallengeItem> items;
     static int participateCount;
-    static int selectedIndex;
+    static String subChallengeId;
+    static String token;
 
     public DetailChallengeAdapter(Context rootFragment){
         this.rootFragment = rootFragment;
@@ -53,13 +54,13 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.detail_challenge_item,parent,false);
 
+        token = LoginFragment.getToken();
         return new ViewHolder(itemView,listener,rootFragment);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SubChallengeItem item = items.get(position);
-        selectedIndex = position;
         holder.setItem(item);
     }
 
@@ -105,23 +106,28 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
         }
 
         public void setItem(final SubChallengeItem item) {
+
             textView.setText(item.getTitle());
-            Log.d("세부챌린지아이디1",item.get_id());
             joinBT.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d("버튼 ",LoginFragment.getToken());
-                    Call<Participate> participate = RetrofitClient.getApiService()
-                            .putData(LoginFragment.getToken(), ""+item.get_id());
-                    participate.enqueue(new Callback<Participate>() {
+                    subChallengeId = item.get_id();
+//                    Log.d("세부챌린지아이디1",item.get_id());
+//                        Log.d("아이디잉",subChallengeId);
+//                    Log.d("버튼 ",LoginFragment.getToken());
+//                    Log.d("토크은",LoginFragment.getToken());
+
+                    RetrofitClient.getApiService()
+                            .putData(token, subChallengeId)
+                            .enqueue(new Callback<Participate>() {
                         @Override
                         public void onResponse(Call<Participate> call, Response<Participate> response) {
                             if (response.isSuccessful()) {
                                 response_participate = response.body();
                                 participateCount = response_participate.getCount(); //주제 제목
-                                Log.d("통신","성공");
-                                Log.d("참여",""+participateCount);
-                                Log.d("세부챌린지아이디",items.get(selectedIndex).get_id());
+//                                Log.d("통신","성공");
+//                                Log.d("참여",""+participateCount);
+//                                Log.d("세부챌린지아이디",subChallengeId);
 
                             } else {
                                 Log.d("응답이상", "" + response.code());
@@ -136,7 +142,7 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
 
                     //팝업창
                     AlertDialog.Builder ad = new AlertDialog.Builder(rootFragment);
-                    ad.setTitle("님"); //usㄺㅁername
+                    ad.setTitle(LoginFragment.getNickname()+"님"); //usㄺㅁername
                     ad.setMessage("참여 감사합니다 :) \n 당신의 실천이 \n 일상이 되길 바랍니다.");
                     ad.setPositiveButton("사진으로 인증하기",
                             new DialogInterface.OnClickListener() {

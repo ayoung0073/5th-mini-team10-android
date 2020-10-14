@@ -2,15 +2,13 @@ package com.moonayoung.greenlife.api;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-
 public class Participate {
     @SerializedName("success")
     private boolean success;
     @SerializedName("count")
     private int count;
 
-    public boolean isSuccess() {
+    public boolean getSuccess() {
         return success;
     }
 

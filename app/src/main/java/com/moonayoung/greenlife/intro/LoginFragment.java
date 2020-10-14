@@ -34,6 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginFragment extends Fragment {
     private static String token;
+    private static String nickname;
     EditText email;
     EditText passwd;
     TextView warning;
@@ -104,6 +105,7 @@ public class LoginFragment extends Fragment {
                     Log.d("로그인 토큰", "     "+loginPost.getToken());
 
                     token = loginPost.getToken();
+                    nickname = loginPost.getNickname();
                 }
                 else{
                     Toast.makeText(getContext(),"응답안옴",Toast.LENGTH_LONG).show();
@@ -119,6 +121,10 @@ public class LoginFragment extends Fragment {
     public static String getToken(){
         return token;
     }
-
+    public static String getNickname(){
+        return nickname;
     }
+    }
+
+
 

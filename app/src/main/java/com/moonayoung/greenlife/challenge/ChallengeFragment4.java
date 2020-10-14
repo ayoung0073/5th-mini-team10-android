@@ -78,9 +78,8 @@ public class ChallengeFragment4 extends Fragment {
             }
         });
 
-        Call<SubChallenge> subChallenges = RetrofitClient.getApiService()
-                .getDetatilChallenges(token, challengeId);
-        subChallenges.enqueue(new Callback<SubChallenge>() {
+        RetrofitClient.getApiService()
+                .getDetatilChallenges(token, challengeId).enqueue(new Callback<SubChallenge>() {
             @Override
             public void onResponse(Call<SubChallenge> call, Response<SubChallenge> response) {
                 if (response.isSuccessful()) {
