@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.moonayoung.greenlife.api.ApiService;
 import com.moonayoung.greenlife.api.RetrofitClient;
@@ -40,14 +42,16 @@ public class ChallengeFragment1 extends Fragment {
 
     RecyclerView detailchallengeListView;
     DetailChallengeAdapter adapter;
-    LoginFragment loginFragment;
     SubChallenge subChallenge;
     String challengeId;
     String token;
     String response_title;
     String response_imageUrl;
     String response_text;
-    Bundle bundle = getArguments();
+    String httpAddress;
+    String imageUrl;
+    ChallengeFragment1 me = this;
+//    Bundle bundle = getArguments();
 
     @Nullable
     @Override
@@ -55,14 +59,27 @@ public class ChallengeFragment1 extends Fragment {
 
         final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_challenge1, container, false);
 
-        if(bundle != null){
-            challengeId = bundle.getString("response_id"); //Name 받기.
+        if(getArguments().getString("response_id") != null){
+            challengeId = getArguments().getString("response_id"); //Name 받기.
+        } else{
+            Log.d("번들","비어있음");
         }
-        loginFragment = new LoginFragment();
-        token = loginFragment.getToken();
+        token = LoginFragment.getToken();
+
+        Button backBT = rootView.findViewById(R.id.backBT); // 1012 백버튼
+        backBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    getActivity().getSupportFragmentManager().beginTransaction().remove(me).commit();
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
+            }
+        });
 
         Call<SubChallenge> subChallenges = RetrofitClient.getApiService()
-                .getDetatilChallenges(challengeId, token);
+                .getDetatilChallenges(token, challengeId);
         subChallenges.enqueue(new Callback<SubChallenge>() {
             @Override
             public void onResponse(Call<SubChallenge> call, Response<SubChallenge> response) {
@@ -78,7 +95,14 @@ public class ChallengeFragment1 extends Fragment {
                     Log.d("주제",""+subChallenge.getSubchallenges().size());
 
                     TextView content = rootView.findViewById(R.id.content1);
+                    TextView challenge= rootView.findViewById(R.id.challenge_textView);
+                    ImageView imageView = rootView.findViewById(R.id.imageView);
+
+                    httpAddress = "http://133.186.241.35:80/";
+                    imageUrl = httpAddress + response_imageUrl;
                     content.setText(response_text); //주제 소개 문구
+                    challenge.setText(response_title);
+                    Glide.with(getActivity()).load(imageUrl).into(imageView);
 
                     detailchallengeListView = (RecyclerView) rootView.findViewById(R.id.detail_challengeListView);
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false); //linearlayout으로 리싸이클러뷰 설정

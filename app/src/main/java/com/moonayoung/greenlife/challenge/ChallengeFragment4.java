@@ -1,10 +1,14 @@
 package com.moonayoung.greenlife.challenge;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,52 +18,68 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.moonayoung.greenlife.R;
+import com.bumptech.glide.Glide;
+import com.google.gson.JsonArray;
+import com.moonayoung.greenlife.api.ApiService;
 import com.moonayoung.greenlife.api.RetrofitClient;
 import com.moonayoung.greenlife.api.SubChallenge;
 import com.moonayoung.greenlife.api.SubChallengeItem;
-import com.moonayoung.greenlife.challenge.ChallengeFragment1;
-import com.moonayoung.greenlife.challenge.ChallengeFragment2;
-import com.moonayoung.greenlife.challenge.ChallengeFragment3;
-import com.moonayoung.greenlife.challenge.ChallengeList;
-import com.moonayoung.greenlife.challenge.DetailChallengeAdapter;
+import com.moonayoung.greenlife.camera.CameraActivity;
+import com.moonayoung.greenlife.R;
 import com.moonayoung.greenlife.intro.LoginFragment;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
-//주제4 눌렀을 때의 프래그먼트
+//세부챌린지 리스트 프래그먼트
 
 public class ChallengeFragment4 extends Fragment {
 
     RecyclerView detailchallengeListView;
     DetailChallengeAdapter adapter;
-    FragmentChallenge fragmentChallenge = new FragmentChallenge();
-    LoginFragment loginFragment = new LoginFragment();
     SubChallenge subChallenge;
     String challengeId;
     String token;
     String response_title;
     String response_imageUrl;
     String response_text;
-    Bundle bundle = getArguments();
+    String httpAddress;
+    String imageUrl;
+    ChallengeFragment4 me = this;
+//    Bundle bundle = getArguments();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        final ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_challenge1,container,false);
+        final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_challenge1, container, false);
 
-        if(bundle != null){
-            challengeId = bundle.getString("response_id"); //Name 받기.
+        if(getArguments().getString("response_id") != null){
+            challengeId = getArguments().getString("response_id"); //Name 받기.
+        } else{
+            Log.d("번들","비어있음");
         }
-        token = loginFragment.getToken();
+        token = LoginFragment.getToken();
+
+        Button backBT = rootView.findViewById(R.id.backBT); // 1012 백버튼
+        backBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    getActivity().getSupportFragmentManager().beginTransaction().remove(me).commit();
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
+            }
+        });
 
         Call<SubChallenge> subChallenges = RetrofitClient.getApiService()
-                .getDetatilChallenges(challengeId, token);
+                .getDetatilChallenges(token, challengeId);
         subChallenges.enqueue(new Callback<SubChallenge>() {
             @Override
             public void onResponse(Call<SubChallenge> call, Response<SubChallenge> response) {
@@ -69,19 +89,29 @@ public class ChallengeFragment4 extends Fragment {
                     response_imageUrl = subChallenge.getImageUrl(); //주제 이미지
                     response_text = subChallenge.getText(); //주제 소개? 멘트
 
+                    Log.d("세부통신","통신성공");
                     Log.d("아이디",challengeId);
                     Log.d("토큰",token);
+                    Log.d("주제",""+subChallenge.getSubchallenges().size());
 
                     TextView content = rootView.findViewById(R.id.content1);
-                    content.setText(response_text); //주제 소개 문구
+                    TextView challenge= rootView.findViewById(R.id.challenge_textView);
+                    ImageView imageView = rootView.findViewById(R.id.imageView);
 
-                    detailchallengeListView = (RecyclerView)rootView.findViewById(R.id.detail_challengeListView);
+                    httpAddress = "http://133.186.241.35:80/";
+                    imageUrl = httpAddress + response_imageUrl;
+                    content.setText(response_text); //주제 소개 문구
+                    challenge.setText(response_title);
+                    Glide.with(getActivity()).load(imageUrl).into(imageView);
+
+                    detailchallengeListView = (RecyclerView) rootView.findViewById(R.id.detail_challengeListView);
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false); //linearlayout으로 리싸이클러뷰 설정
                     detailchallengeListView.setLayoutManager(layoutManager);
                     adapter = new DetailChallengeAdapter(getActivity()); //디테일챌린지어댑터 클래스에 문맥 보냄(현재 프래그먼트에 팝업 띄우기 위해)
                     adapter.setChallengeList(subChallenge.getSubchallenges());
                     //adapter.setItems(challengeList.getChallengeLists()); // 데이터 저장되어 있음 Title, content, 세부 챌린지 배열
                     detailchallengeListView.setAdapter(adapter); // 어댑터에 설정 -> 리싸이클러뷰에 챌린지 목록 보임
+
                 } else {
                     Log.d("응답이상", "" + response.code());
                 }

@@ -4,30 +4,44 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.moonayoung.greenlife.R;
 import com.moonayoung.greenlife.api.ChallengeItem;
+import com.moonayoung.greenlife.api.Participate;
+import com.moonayoung.greenlife.api.RetrofitClient;
 import com.moonayoung.greenlife.api.SubChallenge;
 import com.moonayoung.greenlife.api.SubChallengeItem;
 import com.moonayoung.greenlife.camera.CameraActivity;
+import com.moonayoung.greenlife.intro.LoginFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallengeAdapter.ViewHolder> {
 
     Context rootFragment; //상위 프래그먼트의 문맥 얻어옴(거기에 팝업 띄우기 위해)
     onDetailChallengeListClickListener listener;
-    List<SubChallengeItem> items;
+    static Participate response_participate;
+    static List<SubChallengeItem> items;
+    static int participateCount;
+    static int selectedIndex;
 
     public DetailChallengeAdapter(Context rootFragment){
         this.rootFragment = rootFragment;
@@ -45,6 +59,7 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SubChallengeItem item = items.get(position);
+        selectedIndex = position;
         holder.setItem(item);
     }
 
@@ -89,12 +104,37 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
             });
         }
 
-        public void setItem(SubChallengeItem item) {
+        public void setItem(final SubChallengeItem item) {
             textView.setText(item.getTitle());
-
+            Log.d("세부챌린지아이디1",item.get_id());
             joinBT.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) { //팝업창
+                public void onClick(View view) {
+                    Log.d("버튼 ",LoginFragment.getToken());
+                    Call<Participate> participate = RetrofitClient.getApiService()
+                            .putData(LoginFragment.getToken(), ""+item.get_id());
+                    participate.enqueue(new Callback<Participate>() {
+                        @Override
+                        public void onResponse(Call<Participate> call, Response<Participate> response) {
+                            if (response.isSuccessful()) {
+                                response_participate = response.body();
+                                participateCount = response_participate.getCount(); //주제 제목
+                                Log.d("통신","성공");
+                                Log.d("참여",""+participateCount);
+                                Log.d("세부챌린지아이디",items.get(selectedIndex).get_id());
+
+                            } else {
+                                Log.d("응답이상", "" + response.code());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Participate> call, Throwable t) {
+                            Log.d("통신오류", "안됨되뫼");
+                        }
+                    });
+
+                    //팝업창
                     AlertDialog.Builder ad = new AlertDialog.Builder(rootFragment);
                     ad.setTitle("님"); //usㄺㅁername
                     ad.setMessage("참여 감사합니다 :) \n 당신의 실천이 \n 일상이 되길 바랍니다.");

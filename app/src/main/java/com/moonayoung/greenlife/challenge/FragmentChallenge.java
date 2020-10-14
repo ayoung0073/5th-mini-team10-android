@@ -47,7 +47,7 @@ public class FragmentChallenge extends Fragment {
     ChallengeFragment3 challengeFragment3;
     ChallengeFragment4 challengeFragment4;
     ChallengeFragment5 challengeFragment5;
-    Bundle bundle = new Bundle();
+    Bundle bundle;
 
     @Nullable
     @Override
@@ -84,31 +84,36 @@ public class FragmentChallenge extends Fragment {
                             switch (position) {
                                 case 1: // 첫번째 click
                                     challengeFragment1 = new ChallengeFragment1();
-                                    bundle.putString("response_id",response_challenges.get(0).get_id());
+                                    bundle = new Bundle();
+                                    bundle.putString("response_id",""+response_challenges.get(0).get_id());
                                     challengeFragment1.setArguments(bundle);
                                     fragmentManager.beginTransaction().replace(R.id.mainContainer, challengeFragment1).commit(); //1번째 챌린지 프래그먼트 띄움
                                     break;
                                 case 2:
                                     challengeFragment2 = new ChallengeFragment2();
-                                    bundle.putString("response_id",response_challenges.get(1).get_id());
+                                    bundle = new Bundle();
+                                    bundle.putString("response_id",""+response_challenges.get(1).get_id());
                                     challengeFragment2.setArguments(bundle);
                                     fragmentManager.beginTransaction().replace(R.id.mainContainer, challengeFragment2).commit();
                                     break;
                                 case 3:
                                     challengeFragment3 = new ChallengeFragment3();
-                                    bundle.putString("response_id",response_challenges.get(2).get_id());
+                                    bundle = new Bundle();
+                                    bundle.putString("response_id",""+response_challenges.get(2).get_id());
                                     challengeFragment3.setArguments(bundle);
                                     fragmentManager.beginTransaction().replace(R.id.mainContainer, challengeFragment3).commit();
                                     break;
                                 case 4:
                                     challengeFragment4 = new ChallengeFragment4();
-                                    bundle.putString("response_id",response_challenges.get(3).get_id());
+                                    bundle = new Bundle();
+                                    bundle.putString("response_id",""+response_challenges.get(3).get_id());
                                     challengeFragment4.setArguments(bundle);
                                     fragmentManager.beginTransaction().replace(R.id.mainContainer, challengeFragment4).commit();
                                     break;
                                 case 5:
                                     challengeFragment5 = new ChallengeFragment5();
-                                    bundle.putString("response_id",response_challenges.get(4).get_id());
+                                    bundle = new Bundle();
+                                    bundle.putString("response_id",""+response_challenges.get(4).get_id());
                                     challengeFragment5.setArguments(bundle);
                                     fragmentManager.beginTransaction().replace(R.id.mainContainer, challengeFragment5).commit();
                                     break;

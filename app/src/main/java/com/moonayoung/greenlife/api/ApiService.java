@@ -39,8 +39,8 @@ public interface ApiService {
     @GET("/challenge/detail/{id}") // 챌린지상세
     Call<SubChallenge> getDetatilChallenges(@Header("token") String token, @Path("id") String challengeId);
 
-    @PUT("/challenge") // 요청 바디로(참여버튼) -> 해당챌린지Id 보냄
-    Call<Challenge> putData(@Body Challenge param,@HeaderMap HashMap<String,String> map);
+    @PUT("/challenge_do_subchallenge/{id}") // 요청 바디로(참여버튼) -> 해당 세부챌린지 Id 보냄
+    Call<Participate> putData(@Header("token") String token, @Path("id") String subChallengeId);
 
     @POST("feed/upload") // 사진업로드 // 아직 사진객체 ?
     Call<UploadPost> postPhoto(@Header("token") String token, @Body Bitmap param);

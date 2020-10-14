@@ -33,10 +33,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginFragment extends Fragment {
+    private static String token;
     EditText email;
     EditText passwd;
     TextView warning;
-    private String token; //세부 챌린지에서 사용자 토큰 접근하기 위한 변수
+//    private String token; //세부 챌린지에서 사용자 토큰 접근하기 위한 변수
 
 //    AccountManager am = AccountManager.get(getContext());
 
@@ -63,7 +64,6 @@ public class LoginFragment extends Fragment {
                         warning.setText("잘못된 이메일 형식입니다.");
                     else warning.setText("다시 입력해주세요.");
                 }
-
             }
         });
         return rootView;
@@ -85,6 +85,7 @@ public class LoginFragment extends Fragment {
 
                     System.out.println(email.getText().toString());
                     System.out.println(passwd.getText().toString());
+                    Log.d("로그인프래그먼트",loginPost.getToken());
 
 
                     if(!loginPost.isSuccess()){
@@ -115,7 +116,7 @@ public class LoginFragment extends Fragment {
             }
         });
     }
-    public String getToken(){
+    public static String getToken(){
         return token;
     }
 
