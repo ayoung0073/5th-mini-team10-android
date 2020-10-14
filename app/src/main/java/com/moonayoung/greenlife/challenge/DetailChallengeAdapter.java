@@ -112,7 +112,9 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
                 @Override
                 public void onClick(View view) {
                     subChallengeId = item.get_id();
-//                    Log.d("세부챌린지아이디1",item.get_id());
+//                    Log.d("세부아이디잉1",subChallengeId);
+//                    Log.d("세부타이틀1",item.getTitle());
+
 //                        Log.d("아이디잉",subChallengeId);
 //                    Log.d("버튼 ",LoginFragment.getToken());
 //                    Log.d("토크은",LoginFragment.getToken());
@@ -126,7 +128,7 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
                                 response_participate = response.body();
                                 participateCount = response_participate.getCount(); //주제 제목
 //                                Log.d("통신","성공");
-//                                Log.d("참여",""+participateCount);
+                                Log.d("참여",""+participateCount);
 //                                Log.d("세부챌린지아이디",subChallengeId);
 
                             } else {
