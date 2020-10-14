@@ -22,14 +22,16 @@
         android:layout_height="45dp"
         android:layout_gravity="center"
         android:background="@drawable/login2"
-        android:fontFamily="@font/notosanscjkkrregular"
+        android:fontFamily="sans-serif"
         android:gravity="center_vertical"
         android:hint="이메일"
         android:imeOptions="actionNext"
-        android:paddingLeft="15dp"
+        android:paddingLeft="13dp"
+        android:paddingRight="3dp"
+        android:paddingBottom="3dp"
         android:selectAllOnFocus="true"
         android:textColor="#A93E3E3E"
-        android:textSize="18sp" />
+        android:textSize="15sp" />
 
     <EditText
         android:id="@+id/passwd_login"
@@ -38,15 +40,17 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/login2"
-        android:fontFamily="@font/notosanscjkkrregular"
+        android:fontFamily="sans-serif"
         android:gravity="center_vertical"
         android:hint="비밀번호"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
-        android:paddingLeft="15dp"
+        android:paddingLeft="13dp"
+        android:paddingRight="3dp"
+        android:paddingBottom="3dp"
         android:selectAllOnFocus="true"
         android:textColor="#A93E3E3E"
-        android:textSize="18sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/warning_login"
