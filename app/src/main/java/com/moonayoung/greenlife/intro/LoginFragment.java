@@ -86,7 +86,7 @@ public class LoginFragment extends Fragment {
 
                     System.out.println(email.getText().toString());
                     System.out.println(passwd.getText().toString());
-                    Log.d("로그인프래그먼트",loginPost.getToken());
+                    Log.d("로그인프래그먼트",""+loginPost.getToken());
 
 
                     if(!loginPost.isSuccess()){

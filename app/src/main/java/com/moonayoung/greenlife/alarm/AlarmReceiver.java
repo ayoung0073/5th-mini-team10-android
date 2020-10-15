@@ -11,6 +11,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.moonayoung.greenlife.R;
 import com.moonayoung.greenlife.MainActivity;
+//import com.moonayoung.greenlife.MainActivity;
 
 public class AlarmReceiver extends BroadcastReceiver {
 

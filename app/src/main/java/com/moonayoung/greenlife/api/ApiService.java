@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
@@ -14,9 +15,12 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.QueryMap;
 
 public interface ApiService {
 
@@ -42,8 +46,9 @@ public interface ApiService {
     @PUT("/challenge/do/subchallenge/{id}") // 요청 바디로(참여버튼) -> 해당 세부챌린지 Id 보냄
     Call<Participate> putData(@Header("token") String token, @Path("id") String subChallengeId);
 
+
     @POST("feed/upload") // 사진업로드 // 아직 사진객체 ?
-    Call<UploadPost> postPhoto(@Header("token") String token, @Body Bitmap param);
+    Call<UploadPost> postPhoto(@Header("token") String token,@Body HashMap<String,MultipartBody.Part> map);
 
     @GET("/feed") // feed 확인
     Call<Feed> feedUpload(@Header("Content-Type") String content);

@@ -26,6 +26,7 @@ import com.pedro.library.AutoPermissions;
 import com.pedro.library.AutoPermissionsListener;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.InputStream;
 
 public class CameraActivity extends AppCompatActivity implements AutoPermissionsListener {
@@ -35,6 +36,7 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
     ImageView picture;
     Intent intent;
     Bitmap bitmap;
+    Uri fileUri;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +112,7 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
 
         byte[] bytes = stream.toByteArray();
         intent.putExtra("photo",bytes);
+        intent.putExtra("file",fileUri);
 
         Toast.makeText(getApplicationContext(),"인텐트 시작!",Toast.LENGTH_LONG).show();
         startActivity(intent);
@@ -199,7 +202,7 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
         {
             if(resultCode==RESULT_OK) //사진 선택일 때 정상 ok온다
             {
-                Uri fileUri=data.getData();
+                fileUri=data.getData();
                 //이 intent의 getData() 메서드를 호출하면 Uri 자료형의 값이 반환됨
                 //ContentResolver를 이용해 참조할 수 있는 이미지를 가리킴
 
