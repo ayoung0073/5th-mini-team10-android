@@ -59,10 +59,10 @@ public class ChallengeFragment5 extends Fragment {
 
         final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_challenge1, container, false);
 
-        if(getArguments().getString("response_id") != null){
+        if (getArguments().getString("response_id") != null) {
             challengeId = getArguments().getString("response_id"); //Name 받기.
-        } else{
-            Log.d("번들","비어있음");
+        } else {
+            Log.d("번들", "비어있음");
         }
         token = LoginFragment.getToken();
 
@@ -88,13 +88,13 @@ public class ChallengeFragment5 extends Fragment {
                     response_imageUrl = subChallenge.getImageUrl(); //주제 이미지
                     response_text = subChallenge.getText(); //주제 소개? 멘트
 
-                    Log.d("세부통신","통신성공");
-                    Log.d("아이디",challengeId);
-                    Log.d("토큰",token);
-                    Log.d("주제",""+subChallenge.getSubchallenges().size());
+                    Log.d("세부통신", "통신성공");
+                    Log.d("아이디", challengeId);
+                    Log.d("토큰", token);
+                    Log.d("주제", "" + subChallenge.getSubchallenges().size());
 
                     TextView content = rootView.findViewById(R.id.content1);
-                    TextView challenge= rootView.findViewById(R.id.challenge_textView);
+                    TextView challenge = rootView.findViewById(R.id.challenge_textView);
                     ImageView imageView = rootView.findViewById(R.id.imageView);
 
                     httpAddress = "http://133.186.241.35:80/";

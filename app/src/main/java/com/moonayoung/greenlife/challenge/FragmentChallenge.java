@@ -67,14 +67,14 @@ public class FragmentChallenge extends Fragment {
                     response_challenges = challenge.getChallenge();
                     Log.d("하하", response_challenges.get(0).getTitle());
                     Log.d("히히", response_challenges.get(0).get_id());
-                    adapter = new ChallengeAdapter(getActivity(),response_challenges);
+                    adapter = new ChallengeAdapter(getActivity(), response_challenges);
                     adapter.setItems(response_challenges);
                     //adapter.setItems(challengeList.getChallengeLists()); // 데이터 저장되어 있음 Title, content, 세부 챌린지 배열
                     challengeListView.setAdapter(adapter); // 어댑터에 설정 -> 리싸이클러뷰에 챌린지 목록 보임
                     adapter.setOnItemClickListener(new onChallengeListClickListener() {
                         @Override
                         public void onItemClick(ChallengeAdapter.ViewHolder holder, View view, int position) { // 챌린지 목록 각각 눌렀을 때
-                            Log.d("response_id",response_challenges.get(0).get_id());
+                            Log.d("response_id", response_challenges.get(0).get_id());
 
                             ChallengeItem item = adapter.getItem(position);
                             position++;
@@ -85,35 +85,35 @@ public class FragmentChallenge extends Fragment {
                                 case 1: // 첫번째 click
                                     challengeFragment1 = new ChallengeFragment1();
                                     bundle = new Bundle();
-                                    bundle.putString("response_id",""+response_challenges.get(0).get_id());
+                                    bundle.putString("response_id", "" + response_challenges.get(0).get_id());
                                     challengeFragment1.setArguments(bundle);
                                     fragmentManager.beginTransaction().replace(R.id.mainContainer, challengeFragment1).commit(); //1번째 챌린지 프래그먼트 띄움
                                     break;
                                 case 2:
                                     challengeFragment2 = new ChallengeFragment2();
                                     bundle = new Bundle();
-                                    bundle.putString("response_id",""+response_challenges.get(1).get_id());
+                                    bundle.putString("response_id", "" + response_challenges.get(1).get_id());
                                     challengeFragment2.setArguments(bundle);
                                     fragmentManager.beginTransaction().replace(R.id.mainContainer, challengeFragment2).commit();
                                     break;
                                 case 3:
                                     challengeFragment3 = new ChallengeFragment3();
                                     bundle = new Bundle();
-                                    bundle.putString("response_id",""+response_challenges.get(2).get_id());
+                                    bundle.putString("response_id", "" + response_challenges.get(2).get_id());
                                     challengeFragment3.setArguments(bundle);
                                     fragmentManager.beginTransaction().replace(R.id.mainContainer, challengeFragment3).commit();
                                     break;
                                 case 4:
                                     challengeFragment4 = new ChallengeFragment4();
                                     bundle = new Bundle();
-                                    bundle.putString("response_id",""+response_challenges.get(3).get_id());
+                                    bundle.putString("response_id", "" + response_challenges.get(3).get_id());
                                     challengeFragment4.setArguments(bundle);
                                     fragmentManager.beginTransaction().replace(R.id.mainContainer, challengeFragment4).commit();
                                     break;
                                 case 5:
                                     challengeFragment5 = new ChallengeFragment5();
                                     bundle = new Bundle();
-                                    bundle.putString("response_id",""+response_challenges.get(4).get_id());
+                                    bundle.putString("response_id", "" + response_challenges.get(4).get_id());
                                     challengeFragment5.setArguments(bundle);
                                     fragmentManager.beginTransaction().replace(R.id.mainContainer, challengeFragment5).commit();
                                     break;
@@ -158,7 +158,6 @@ public class FragmentChallenge extends Fragment {
                 ad.show();
             }
         });
-
 
 
         return rootView;
