@@ -50,8 +50,8 @@ public interface ApiService {
     @POST("feed/upload") // 사진업로드 // 아직 사진객체 ?
     Call<UploadPost> postPhoto(@Header("token") String token,@Body HashMap<String,MultipartBody.Part> map);
 
-    @GET("/feed") // feed 확인
-    Call<Feed> feedUpload(@Header("Content-Type") String content);
+    @GET("feed") // feed 확인
+    Call<Feed> feedUpload();
 
     @GET("user/rank") // 명예의 전당
     Call<Rank> getRank(@Header("Content-Type") String content);

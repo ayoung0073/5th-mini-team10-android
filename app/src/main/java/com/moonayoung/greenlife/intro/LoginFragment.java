@@ -23,6 +23,7 @@ import com.moonayoung.greenlife.api.JoinPost;
 import com.moonayoung.greenlife.api.LoginPost;
 import com.moonayoung.greenlife.api.RetrofitClient;
 import com.moonayoung.greenlife.api.User;
+import com.moonayoung.greenlife.challenge.FragmentChallenge;
 
 import java.util.HashMap;
 
@@ -106,6 +107,7 @@ public class LoginFragment extends Fragment {
 
                     token = loginPost.getToken();
                     nickname = loginPost.getNickname();
+                    FragmentChallenge.loginDone();
                 }
                 else{
                     Toast.makeText(getContext(),"응답안옴",Toast.LENGTH_LONG).show();

@@ -79,48 +79,44 @@ public class ChallengeFragment5 extends Fragment {
         });
 
         RetrofitClient.getApiService()
-                .getDetatilChallenges(token, challengeId).enqueue(new Callback<SubChallenge>() {
-            @Override
-            public void onResponse(Call<SubChallenge> call, Response<SubChallenge> response) {
-                if (response.isSuccessful()) {
-                    subChallenge = response.body();
-                    response_title = subChallenge.getTitle(); //주제 제목
-                    response_imageUrl = subChallenge.getImageUrl(); //주제 이미지
-                    response_text = subChallenge.getText(); //주제 소개? 멘트
+                .getDetatilChallenges(token, challengeId)
+                .enqueue(new Callback<SubChallenge>() {
+                    @Override
+                    public void onResponse(Call<SubChallenge> call, Response<SubChallenge> response) {
+                        if (response.isSuccessful()) {
+                            subChallenge = response.body();
+                            response_title = subChallenge.getTitle(); //주제 제목
+                            response_imageUrl = subChallenge.getImageUrl(); //주제 이미지
+                            response_text = subChallenge.getText(); //주제 소개? 멘트
 
-                    Log.d("세부통신", "통신성공");
-                    Log.d("아이디", challengeId);
-                    Log.d("토큰", token);
-                    Log.d("주제", "" + subChallenge.getSubchallenges().size());
+                            TextView content = rootView.findViewById(R.id.content1);
+                            TextView challenge = rootView.findViewById(R.id.challenge_textView);
+                            ImageView imageView = rootView.findViewById(R.id.imageView);
 
-                    TextView content = rootView.findViewById(R.id.content1);
-                    TextView challenge = rootView.findViewById(R.id.challenge_textView);
-                    ImageView imageView = rootView.findViewById(R.id.imageView);
+                            httpAddress = "http://133.186.241.35:80/";
+                            imageUrl = httpAddress + response_imageUrl;
+                            content.setText(response_text); //주제 소개 문구
+                            challenge.setText(response_title);
+                            Glide.with(getActivity()).load(imageUrl).into(imageView);
 
-                    httpAddress = "http://133.186.241.35:80/";
-                    imageUrl = httpAddress + response_imageUrl;
-                    content.setText(response_text); //주제 소개 문구
-                    challenge.setText(response_title);
-                    Glide.with(getActivity()).load(imageUrl).into(imageView);
+                            detailchallengeListView = (RecyclerView) rootView.findViewById(R.id.detail_challengeListView);
+                            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false); //linearlayout으로 리싸이클러뷰 설정
+                            detailchallengeListView.setLayoutManager(layoutManager);
+                            adapter = new DetailChallengeAdapter(getActivity()); //디테일챌린지어댑터 클래스에 문맥 보냄(현재 프래그먼트에 팝업 띄우기 위해)
+                            adapter.setChallengeList(subChallenge.getSubchallenges());
+                            //adapter.setItems(challengeList.getChallengeLists()); // 데이터 저장되어 있음 Title, content, 세부 챌린지 배열
+                            detailchallengeListView.setAdapter(adapter); // 어댑터에 설정 -> 리싸이클러뷰에 챌린지 목록 보임
 
-                    detailchallengeListView = (RecyclerView) rootView.findViewById(R.id.detail_challengeListView);
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false); //linearlayout으로 리싸이클러뷰 설정
-                    detailchallengeListView.setLayoutManager(layoutManager);
-                    adapter = new DetailChallengeAdapter(getActivity()); //디테일챌린지어댑터 클래스에 문맥 보냄(현재 프래그먼트에 팝업 띄우기 위해)
-                    adapter.setChallengeList(subChallenge.getSubchallenges());
-                    //adapter.setItems(challengeList.getChallengeLists()); // 데이터 저장되어 있음 Title, content, 세부 챌린지 배열
-                    detailchallengeListView.setAdapter(adapter); // 어댑터에 설정 -> 리싸이클러뷰에 챌린지 목록 보임
+                        } else {
+                            Log.d("응답이상", "" + response.code());
+                        }
+                    }
 
-                } else {
-                    Log.d("응답이상", "" + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SubChallenge> call, Throwable t) {
-                Log.d("통신오류", "안됨되뫼");
-            }
-        });
+                    @Override
+                    public void onFailure(Call<SubChallenge> call, Throwable t) {
+                        Log.d("통신오류", "안됨되뫼");
+                    }
+                });
 
 
         return rootView;

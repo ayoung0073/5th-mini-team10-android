@@ -5,33 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:visibility="visible">
+    android:visibility="visible"
+    android:layout_marginBottom="30dp">
 
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/challenge_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-        <!--android:background="#F0F6E8"-->
-        <ImageView
-            android:id="@+id/challenge_imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints" />
-        <!-- <ImageButton
-                android:src="@drawable/join"
-                android:id="@+id/participate_button"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--android:background="#F0F6E8"-->
+
+            <ImageView
+                android:id="@+id/challenge_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/challenge_textView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>-->
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="90dp"
+                android:fontFamily="@font/notosanscjkkrregular"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/challenge_imageView"
+                tools:ignore="MissingConstraints" />
 
-    </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="50dp"
+                android:src="@drawable/ptc01"
+                app:layout_constraintBottom_toBottomOf="@+id/challenge_imageView"
+                app:layout_constraintEnd_toEndOf="@+id/challenge_imageView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 </LinearLayout>

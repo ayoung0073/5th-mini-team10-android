@@ -31,7 +31,8 @@
         android:paddingBottom="3dp"
         android:selectAllOnFocus="true"
         android:textColor="#A93E3E3E"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:text="gju06061@naver.com"/>
 
     <EditText
         android:id="@+id/passwd_login"
@@ -50,7 +51,8 @@
         android:paddingBottom="3dp"
         android:selectAllOnFocus="true"
         android:textColor="#A93E3E3E"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:text="qwerty"/>
 
     <TextView
         android:id="@+id/warning_login"

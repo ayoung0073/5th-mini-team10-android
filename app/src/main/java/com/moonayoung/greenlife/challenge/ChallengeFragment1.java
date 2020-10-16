@@ -89,12 +89,6 @@ public class ChallengeFragment1 extends Fragment {
                             response_imageUrl = subChallenge.getImageUrl(); //주제 이미지
                             response_text = subChallenge.getText(); //주제 소개? 멘트
 
-//                    Log.d("세부통신","통신성공");
-//                    Log.d("아이디",challengeId);
-//                    Log.d("토큰",token);
-//                    Log.d("주제",""+subChallenge.getSubchallenges().size());
-//                    Log.d("세부아이디잉",subChallenge.getSubchallenges().get(0).get_id());
-//                    Log.d("세부타이틀",subChallenge.getSubchallenges().get(0).getTitle());
                             TextView content = rootView.findViewById(R.id.content1);
                             TextView challenge = rootView.findViewById(R.id.challenge_textView);
                             ImageView imageView = rootView.findViewById(R.id.imageView);

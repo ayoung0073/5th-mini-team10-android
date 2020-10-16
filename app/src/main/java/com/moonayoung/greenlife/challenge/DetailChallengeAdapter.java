@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.moonayoung.greenlife.CustomDialog;
 import com.moonayoung.greenlife.R;
 import com.moonayoung.greenlife.api.ChallengeItem;
 import com.moonayoung.greenlife.api.Participate;
@@ -86,7 +87,7 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView; // detail_challenge_item 텍스트 뷰
         Button joinBT; // detail_challenge_item 참여 버튼
-        Button participate;
+        TextView participate;
         private Context rootFragment;
 
         public ViewHolder(final View itemView, final onDetailChallengeListClickListener listener, Context rootFragment) {
@@ -95,7 +96,7 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
             this.rootFragment = rootFragment;
             textView = itemView.findViewById(R.id.detail_challenge_text);
             joinBT = itemView.findViewById(R.id.joinBT);
-            participate = itemView.findViewById(R.id.participate_button);
+            participate = itemView.findViewById(R.id.participate_textView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -117,13 +118,6 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
                 @Override
                 public void onClick(View view) {
                     subChallengeId = item.get_id();
-//                    Log.d("세부아이디잉1",subChallengeId);
-//                    Log.d("세부타이틀1",item.getTitle());
-
-//                        Log.d("아이디잉",subChallengeId);
-//                    Log.d("버튼 ",LoginFragment.getToken());
-//                    Log.d("토크은",LoginFragment.getToken());
-
                     RetrofitClient.getApiService()
                             .putData(token, subChallengeId)
                             .enqueue(new Callback<Participate>() {
@@ -132,9 +126,7 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
                                     if (response.isSuccessful()) {
                                         response_participate = response.body();
                                         participateCount = response_participate.getCount(); //주제 제목
-//                                Log.d("통신","성공");
                                         Log.d("참여", "" + participateCount);
-//                                Log.d("세부챌린지아이디",subChallengeId);
 
                                     } else {
                                         Log.d("응답이상", "" + response.code());
@@ -146,7 +138,10 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
                                     Log.d("통신오류", "안됨되뫼");
                                 }
                             });
-
+                    //커스텀 다이얼로그 사용용
+                    CustomDialog customDialog = new CustomDialog(rootFragment, LoginFragment.getNickname());
+                    customDialog.callFunction();
+/*
                     //팝업창
                     AlertDialog.Builder ad = new AlertDialog.Builder(rootFragment);
                     ad.setTitle(LoginFragment.getNickname() + "님"); //usㄺㅁername
@@ -166,6 +161,8 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
                         }
                     });
                     ad.show();
+                    participate.setText("" + item.getParticipate()+"회");
+*/
                 }
             });
         }

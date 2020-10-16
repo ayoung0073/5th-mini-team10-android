@@ -5,16 +5,72 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/logoView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="90dp" />
+        android:layout_height="90dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btn_rank"
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/feed_greenlife" />
+    </LinearLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="명예의 전당 바로가기" />
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_rank"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="#4BE88D" />
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="22dp"
+            android:layout_marginBottom="15dp"
+            android:elevation="2dp"
+            android:src="@drawable/prize_wh" />
+
+        <TextView
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="10dp"
+            android:elevation="2dp"
+            android:fontFamily="@font/notosanscjkkrregular"
+            android:text="이번주 그린 리더들을 찾아보세요!"
+            android:textColor="#FFFFFF"
+
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="55dp"
+            android:layout_marginBottom="7dp"
+            android:elevation="2dp"
+            android:fontFamily="@font/notosanscjkkrregular"
+            android:text="명예의 전당 바로가기!"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center|right"
+            android:layout_marginRight="20dp"
+            android:elevation="4dp"
+            android:src="@drawable/fwd" />
+    </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/feed_RecyclerView"

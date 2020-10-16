@@ -1,25 +1,29 @@
 package com.moonayoung.greenlife.api;
 
+import com.google.gson.annotations.SerializedName;
+import com.moonayoung.greenlife.feed.FeedItem;
+
+import java.util.List;
+
 public class Feed {
-    int imageId;
-    String imageUrl;
+    @SerializedName("success")
+    private boolean success;
+    @SerializedName("feed")
+    private List<FeedItems> feed;
 
-    public int getImageId() {
-        return imageId;
+    public boolean isSuccess() {
+        return success;
     }
 
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public List<FeedItems> getFeed() {
+        return feed;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public boolean isSuccess() { return true;
+    public void setFeed(List<FeedItems> feed) {
+        this.feed = feed;
     }
 }
