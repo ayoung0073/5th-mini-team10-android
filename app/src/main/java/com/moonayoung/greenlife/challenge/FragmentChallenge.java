@@ -65,8 +65,8 @@ public class FragmentChallenge extends Fragment {
                     Challenge challenge = response.body();
                     response_success = challenge.getSuccess();
                     response_challenges = challenge.getChallenge();
-                    Log.d("하하", response_challenges.get(0).getTitle());
-                    Log.d("히히", response_challenges.get(0).get_id());
+                    //Log.d("하하", response_challenges.get(0).getTitle());
+                    //Log.d("히히", response_challenges.get(0).get_id());
                     adapter = new ChallengeAdapter(getActivity(), response_challenges);
                     adapter.setItems(response_challenges);
                     //adapter.setItems(challengeList.getChallengeLists()); // 데이터 저장되어 있음 Title, content, 세부 챌린지 배열
