@@ -100,13 +100,13 @@ public class ShareActivity extends AppCompatActivity {
     }
     public void upload(Bitmap bitmap){
         File file;
-        String filename="img.jpg";
+        String filename="iamge.jpg"; // %2E
 
         File storageDir = Environment.getExternalStorageDirectory();
         file = new File(storageDir, filename);
 
 
-        String ex_storage =Environment.getExternalStorageDirectory().getAbsolutePath();
+        //String ex_storage =Environment.getExternalStorageDirectory().getAbsolutePath();
 
         try{
             file = new File(storageDir, filename);
@@ -127,13 +127,13 @@ public class ShareActivity extends AppCompatActivity {
                 .addFormDataPart("image", filename, RequestBody.create(MediaType.parse("multipart/form-data"), file))
                 .build();
         //formData.append('image', 파일);
-        MultipartBody.Part uploadFile = MultipartBody.Part.createFormData("image", fileUri.getEncodedPath(), requestFile);
+        //MultipartBody.Part uploadFile = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 
 
 /*        HashMap<String, MultipartBody.Part> map = new HashMap<>();
         map.put("img",uploadFile);*/
 
-        RetrofitClient.getApiService().postPhoto(LoginFragment.getToken(),uploadFile).enqueue(new Callback<UploadPost>() {
+        RetrofitClient.getApiService().postPhoto(LoginFragment.getToken(),requestFile).enqueue(new Callback<UploadPost>() {
             @Override
             public void onResponse(Call<UploadPost> call, Response<UploadPost> response) {
                 Log.d("upload","통신성공");
