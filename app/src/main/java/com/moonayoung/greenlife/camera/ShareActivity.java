@@ -33,6 +33,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URI;
 import java.util.HashMap;
 
 import okhttp3.MediaType;
@@ -56,7 +57,7 @@ public class ShareActivity extends AppCompatActivity {
 
     Button shareBT;
     Intent intent;
-    Bitmap bitmap;
+    static Bitmap bitmap;
 
     Button backBT;
     Uri fileUri;
@@ -71,6 +72,7 @@ public class ShareActivity extends AppCompatActivity {
         intent = getIntent();
         byte[] bytes = intent.getByteArrayExtra("photo");
         fileUri = Uri.parse(String.valueOf(intent.getParcelableExtra("fileUri")));
+        //System.out.println(fileUri.getPath());
         bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         backBT = findViewById(R.id.backBT3);
         backBT.setOnClickListener(new View.OnClickListener() {
@@ -97,27 +99,55 @@ public class ShareActivity extends AppCompatActivity {
 
     }
     public void upload(Bitmap bitmap){
-        //RetrofitClient.getApiService().postPhoto(,)
-        //MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-        //MultipartBody.Part body =MultipartBody.Part.createFormData("image", file_path.getName(), requestBody);
         File file;
         String filename="img.jpg";
+
         File storageDir = Environment.getExternalStorageDirectory();
         file = new File(storageDir, filename);
 
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part uploadFile = MultipartBody.Part.createFormData("files[]", FileUtil.getPath(fileUri, getApplicationContext()), requestFile);
+
+        String ex_storage =Environment.getExternalStorageDirectory().getAbsolutePath();
+
+        try{
+            file = new File(storageDir, filename);
+
+            FileOutputStream out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.close();
+        }catch(FileNotFoundException exception){
+            Log.e("FileNotFoundException", exception.getMessage());
+        }
+        catch(IOException exception){ Log.e("IOException", exception.getMessage()); }
 
 
-        HashMap<String, MultipartBody.Part> map = new HashMap<>();
-        map.put("img",uploadFile);
 
-        RetrofitClient.getApiService().postPhoto(LoginFragment.getToken(),map).enqueue(new Callback<UploadPost>() {
+        //RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        RequestBody requestFile = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("image", filename, RequestBody.create(MediaType.parse("multipart/form-data"), file))
+                .build();
+        //formData.append('image', 파일);
+        MultipartBody.Part uploadFile = MultipartBody.Part.createFormData("image", fileUri.getEncodedPath(), requestFile);
+
+
+/*        HashMap<String, MultipartBody.Part> map = new HashMap<>();
+        map.put("img",uploadFile);*/
+
+        RetrofitClient.getApiService().postPhoto(LoginFragment.getToken(),uploadFile).enqueue(new Callback<UploadPost>() {
             @Override
             public void onResponse(Call<UploadPost> call, Response<UploadPost> response) {
                 Log.d("upload","통신성공");
                 UploadPost upload = response.body();
+                Log.d("upload",""+upload.isSuccess());
                 Log.d("upload",""+response.toString());
+
+                if(upload.isSuccess()==true){
+                    Toast.makeText(getApplicationContext(),"업로드 완료하였습니다", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"업로드 실패하였습니다", Toast.LENGTH_SHORT).show();
+
+                }
 
 
             }

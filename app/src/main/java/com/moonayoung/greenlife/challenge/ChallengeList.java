@@ -8,9 +8,10 @@ public class ChallengeList {
     String content; // 짧은 뉴스 기사, 혹은 설명글, 인용글
     String[] challenge; // 세부 챌린지 나열
 
-    public ChallengeList(){
+    public ChallengeList() {
 
     }
+
     public ChallengeList(String title) {
         this.title = title;
     }

@@ -114,7 +114,6 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
         intent.putExtra("photo",bytes);
         intent.putExtra("file",fileUri);
 
-        Toast.makeText(getApplicationContext(),"인텐트 시작!",Toast.LENGTH_LONG).show();
         startActivity(intent);
     }
 

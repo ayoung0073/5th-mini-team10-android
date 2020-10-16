@@ -44,18 +44,19 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
     static String subChallengeId;
     static String token;
 
-    public DetailChallengeAdapter(Context rootFragment){
+    public DetailChallengeAdapter(Context rootFragment) {
         this.rootFragment = rootFragment;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemView = inflater.inflate(R.layout.detail_challenge_item,parent,false);
+        View itemView = inflater.inflate(R.layout.detail_challenge_item, parent, false);
 
         token = LoginFragment.getToken();
-        return new ViewHolder(itemView,listener,rootFragment);
+        return new ViewHolder(itemView, listener, rootFragment);
     }
 
     @Override
@@ -68,12 +69,13 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
     public int getItemCount() {
         return items.size();
     }
+
     public void setOnItemClickListener(onDetailChallengeListClickListener listener) { //아이템뷰에 onClickListener 설정하기
         this.listener = listener;
     }
 
     //선택한 주제의 챌린지 리스트 가져오기
-    public void setChallengeList(List<SubChallengeItem> list){
+    public void setChallengeList(List<SubChallengeItem> list) {
         this.items = list;
     }
 
@@ -84,14 +86,16 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView; // detail_challenge_item 텍스트 뷰
         Button joinBT; // detail_challenge_item 참여 버튼
+        Button participate;
         private Context rootFragment;
 
-        public ViewHolder(final View itemView, final onDetailChallengeListClickListener listener,Context rootFragment) {
+        public ViewHolder(final View itemView, final onDetailChallengeListClickListener listener, Context rootFragment) {
             super(itemView);
 
             this.rootFragment = rootFragment;
             textView = itemView.findViewById(R.id.detail_challenge_text);
             joinBT = itemView.findViewById(R.id.joinBT);
+            participate = itemView.findViewById(R.id.participate_button);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -108,6 +112,7 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
         public void setItem(final SubChallengeItem item) {
 
             textView.setText(item.getTitle());
+            participate.setText("" + item.getParticipate()+"회");
             joinBT.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -122,29 +127,29 @@ public class DetailChallengeAdapter extends RecyclerView.Adapter<DetailChallenge
                     RetrofitClient.getApiService()
                             .putData(token, subChallengeId)
                             .enqueue(new Callback<Participate>() {
-                        @Override
-                        public void onResponse(Call<Participate> call, Response<Participate> response) {
-                            if (response.isSuccessful()) {
-                                response_participate = response.body();
-                                participateCount = response_participate.getCount(); //주제 제목
+                                @Override
+                                public void onResponse(Call<Participate> call, Response<Participate> response) {
+                                    if (response.isSuccessful()) {
+                                        response_participate = response.body();
+                                        participateCount = response_participate.getCount(); //주제 제목
 //                                Log.d("통신","성공");
-                                Log.d("참여",""+participateCount);
+                                        Log.d("참여", "" + participateCount);
 //                                Log.d("세부챌린지아이디",subChallengeId);
 
-                            } else {
-                                Log.d("응답이상", "" + response.code());
-                            }
-                        }
+                                    } else {
+                                        Log.d("응답이상", "" + response.code());
+                                    }
+                                }
 
-                        @Override
-                        public void onFailure(Call<Participate> call, Throwable t) {
-                            Log.d("통신오류", "안됨되뫼");
-                        }
-                    });
+                                @Override
+                                public void onFailure(Call<Participate> call, Throwable t) {
+                                    Log.d("통신오류", "안됨되뫼");
+                                }
+                            });
 
                     //팝업창
                     AlertDialog.Builder ad = new AlertDialog.Builder(rootFragment);
-                    ad.setTitle(LoginFragment.getNickname()+"님"); //usㄺㅁername
+                    ad.setTitle(LoginFragment.getNickname() + "님"); //usㄺㅁername
                     ad.setMessage("참여 감사합니다 :) \n 당신의 실천이 \n 일상이 되길 바랍니다.");
                     ad.setPositiveButton("사진으로 인증하기",
                             new DialogInterface.OnClickListener() {
