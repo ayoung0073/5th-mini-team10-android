@@ -3,46 +3,48 @@ package com.moonayoung.greenlife;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.moonayoung.greenlife.alarm.AlarmSetting;
 import com.moonayoung.greenlife.feed.FragmentFeed;
+import com.moonayoung.greenlife.FragmentSetting;
+import com.moonayoung.greenlife.api.ApiService;
 import com.moonayoung.greenlife.challenge.FragmentChallenge;
-import com.moonayoung.greenlife.rank.RankActivity;
-import com.moonayoung.greenlife.setting.FragmentSetting;
 import com.moonayoung.greenlife.intro.IntroActivity;
 import com.moonayoung.greenlife.intro.LoadingActivity;
+import com.moonayoung.greenlife.R;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static int ONE_MINUTE = 5626;
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private FragmentChallenge fragmentChallenge = new FragmentChallenge();
     private FragmentFeed fragmentFeed = new FragmentFeed();
     private FragmentSetting fragmentSetting = new FragmentSetting();
 
-    private String token;
-
-    FragmentTransaction transaction;
-
-    MainActivity me = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+/*
+        final Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApiService.URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+*/
 
-
-        new AlarmSetting(getApplicationContext()).Alarm();
-
-        transaction = fragmentManager.beginTransaction();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frameLayout, fragmentChallenge).commitAllowingStateLoss();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -56,15 +58,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.feedItem:
                         transaction.replace(R.id.frameLayout, fragmentFeed).commitAllowingStateLoss();
-/*                        Intent intent = new Intent(me, RankActivity.class);
-                        startActivity(intent); // 임시로 명전 띄우기*/
                         break;
                     case R.id.settingItem:
                         transaction.replace(R.id.frameLayout, fragmentSetting).commitAllowingStateLoss();
                         break;
                 }
-
-                /* 똑똑~ 오늘의 작은 실천을 보여주세요! */
                 return true;
             }
         });
@@ -72,12 +70,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         Intent intent = new Intent(this, LoadingActivity.class);
         startActivityForResult(intent, 101);
-    }
 
-    public void back_setting(){
-        transaction.replace(R.id.frameLayout, fragmentSetting).commitAllowingStateLoss();
+
+
     }
 
     @Override
@@ -88,13 +86,5 @@ public class MainActivity extends AppCompatActivity {
             Intent intent2 = new Intent(this, IntroActivity.class);
             startActivity(intent2);
         }
-    }
-
-    public void setToken(String token){
-        this.token = token;
-    }
-
-    public String getToken(){
-        return token;
     }
 }

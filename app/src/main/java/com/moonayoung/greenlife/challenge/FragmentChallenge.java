@@ -1,12 +1,17 @@
 package com.moonayoung.greenlife.challenge;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -65,9 +70,9 @@ public class FragmentChallenge extends Fragment {
                     Challenge challenge = response.body();
                     response_success = challenge.getSuccess();
                     response_challenges = challenge.getChallenge();
-                    //Log.d("하하", response_challenges.get(0).getTitle());
-                    //Log.d("히히", response_challenges.get(0).get_id());
-                    adapter = new ChallengeAdapter(getActivity(), response_challenges);
+/*                    Log.d("하하", " "+response_challenges.get(0).getTitle());
+                    Log.d("히히", " "+response_challenges.get(0).get_id());*/
+                    adapter = new ChallengeAdapter(getActivity(),response_challenges);
                     adapter.setItems(response_challenges);
                     //adapter.setItems(challengeList.getChallengeLists()); // 데이터 저장되어 있음 Title, content, 세부 챌린지 배열
                     challengeListView.setAdapter(adapter); // 어댑터에 설정 -> 리싸이클러뷰에 챌린지 목록 보임
@@ -138,9 +143,10 @@ public class FragmentChallenge extends Fragment {
         joinBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { //팝업창
-                AlertDialog.Builder ad = new AlertDialog.Builder(getActivity());
-                ad.setTitle("님"); //username
+                AlertDialog.Builder ad = new AlertDialog.Builder(getActivity(),R.style.MyAlertDialogStyle);
+                ad.setTitle(LoginFragment.getNickname()+"님"); //username
                 ad.setMessage("참여 감사합니다 :) \n 당신의 실천이 \n 일상이 되길 바랍니다.");
+                ad.setIcon(R.drawable.alert);
                 ad.setPositiveButton("사진으로 인증하기",
                         new DialogInterface.OnClickListener() {
                             @Override

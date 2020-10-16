@@ -20,6 +20,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.QueryMap;
 
 public interface ApiService {
 
@@ -45,9 +46,9 @@ public interface ApiService {
     @PUT("/challenge/do/subchallenge/{id}") // 요청 바디로(참여버튼) -> 해당 세부챌린지 Id 보냄
     Call<Participate> putData(@Header("token") String token, @Path("id") String subChallengeId);
 
-    @Multipart
+
     @POST("feed/upload") // 사진업로드 // 아직 사진객체 ?
-    Call<UploadPost> postPhoto(@Header("token") String token, @Part MultipartBody.Part file);
+    Call<UploadPost> postPhoto(@Header("token") String token,@Body HashMap<String,MultipartBody.Part> map);
 
     @GET("/feed") // feed 확인
     Call<Feed> feedUpload(@Header("Content-Type") String content);
