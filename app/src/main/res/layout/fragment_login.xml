@@ -30,6 +30,7 @@
         android:paddingRight="3dp"
         android:paddingBottom="3dp"
         android:selectAllOnFocus="true"
+        android:text="ayong2@gmail.com"
         android:textColor="#A93E3E3E"
         android:textSize="15sp"
         android:text="gju06061@naver.com"/>
@@ -50,6 +51,7 @@
         android:paddingRight="3dp"
         android:paddingBottom="3dp"
         android:selectAllOnFocus="true"
+        android:text="ayong2"
         android:textColor="#A93E3E3E"
         android:textSize="15sp"
         android:text="qwerty"/>

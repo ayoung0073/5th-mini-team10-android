@@ -46,6 +46,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.HEAD;
 
 //챌린지 주제 리스트 프래그먼트
 
