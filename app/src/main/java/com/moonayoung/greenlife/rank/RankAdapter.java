@@ -88,7 +88,7 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.ViewHolder> {
         }
 
         public void setItem(RankUser item){
-            rankTextView.setText(""+item.get_id());
+            rankTextView.setText(" "+item.get_id());
             nicknameTextView.setText(" "+item.getNickname()+ " 님");
             participateTextView.setText(item.getWeekChallengeCount()+"회");
 

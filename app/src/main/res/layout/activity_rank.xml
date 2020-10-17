@@ -32,29 +32,32 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/rank_imageView"
+        android:id="@+id/imageView4"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:src="@android:drawable/ic_menu_gallery" />
+        android:layout_height="287dp"
+        app:srcCompat="@drawable/rankimg" />
 
     <TextView
         android:id="@+id/rank_weekText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="39dp"
+        android:fontFamily="@font/notosanscjkkrbold"
         android:gravity="center"
+        android:text="2020년 10월 셋째 주"
         android:textColor="#000000"
-        android:textSize="25sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/rank_guideText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:fontFamily="@font/notosanscjkkrregular"
         android:gravity="center"
+        android:text="이번주 그린 리더들을 확인해보세요!"
         android:textColor="#000000"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rank_RecyclerView"

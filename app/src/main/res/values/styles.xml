@@ -10,11 +10,10 @@
     // styles.xml
     <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
         <item name="font">@font/notosanscjkkrbold</item>
-        <item name="colorAccent">#4BE88D</item>
+        <item name="colorAccent">#000000</item>
         <item name="iconSize">@dimen/dialog_icon</item>
         <item name="android:windowMinWidthMajor">@dimen/dialog_min_width_major</item>
         <item name="android:windowMinWidthMinor">@dimen/dialog_min_width_minor</item>
-        <item name="height">300dp</item>
     </style>
 
 </resources>

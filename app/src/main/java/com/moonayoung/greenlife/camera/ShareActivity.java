@@ -94,15 +94,33 @@ public class ShareActivity extends AppCompatActivity {
         shareBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                upload(bitmap);
-
                 AlertDialog.Builder ad = new AlertDialog.Builder(me,R.style.MyAlertDialogStyle);
                 ad.setTitle(LoginFragment.getNickname()+"님"); //username
                 ad.setMessage("참여 감사합니다 :) \n 당신의 실천이 \n 일상이 되길 바랍니다.\n오늘의 작은 실천들이 모여 \n 지구를 지켜가는 중입니다. \n 다른 챌린지도 함께 해 주세요.");
                 ad.setIcon(R.drawable.alert);
 
+                ad.setPositiveButton("네!",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                me.finish();
+                                dialogInterface.dismiss();
+                            }
+                        });
                 ad.show();
 
+
+/*                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }*/
+                upload(bitmap);
+
+
+
+
+                //me.finish();
 
 
             }
@@ -153,19 +171,18 @@ public class ShareActivity extends AppCompatActivity {
                 Log.d("upload",""+response.toString());
 
                 if(upload.isSuccess()==true){
-                    Toast.makeText(getApplicationContext(),"업로드 완료하였습니다", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getApplicationContext(),"업로드 완료하였습니다", Toast.LENGTH_SHORT).show();
 
-                    imageView.setImageBitmap(null);
-                    imageView = null;
 
                     //FragmentFeed fragmentFeed = new FragmentFeed();
 
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.container, new FragmentFeed());
-                    transaction.commit();
+                    //Intent intent = new Intent(getApplicationContext(), FragmentFeed.class);
 
+                    //startActivity(intent);
 
                 }
+
                 else {
                     Toast.makeText(getApplicationContext(),"업로드 실패하였습니다", Toast.LENGTH_SHORT).show();
 

@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.moonayoung.greenlife.R;
+import com.moonayoung.greenlife.intro.IntroActivity;
 import com.pedro.library.AutoPermissions;
 import com.pedro.library.AutoPermissionsListener;
 
@@ -37,6 +38,7 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
     Intent intent;
     Bitmap bitmap;
     Uri fileUri;
+    CameraActivity me = this;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +62,6 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
         galleryBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"갤러리보기버튼",Toast.LENGTH_LONG).show();
                 openGallery();
 
             }
@@ -69,7 +70,6 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
         convertBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"카메라전환버튼",Toast.LENGTH_LONG).show();
                 // 전면 -> 후면 or 후면 -> 전면으로 카메라 상태 전환
 
                 cameraFacing = (cameraFacing==Camera.CameraInfo.CAMERA_FACING_FRONT) ?
@@ -88,7 +88,6 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
         photoBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"촬영버튼",Toast.LENGTH_LONG).show();
                 cameraView.capture(new Camera.PictureCallback() {
                     @Override
                     public void onPictureTaken(byte[] bytes, Camera camera) {
@@ -114,8 +113,9 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
         intent.putExtra("photo",bytes);
         intent.putExtra("file",fileUri);
 
-        startActivity(intent);
+        startActivityForResult(intent,102);
     }
+
 
     @Override
     public void onDenied(int i, String[] strings) {
@@ -219,6 +219,9 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
                     e.printStackTrace();
                 }
             }
+        }
+        else if(requestCode==102){
+            me.finish();
         }
     }
 }
