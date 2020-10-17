@@ -15,7 +15,7 @@
         android:padding="10dp"
         android:text="설정"
         android:textColor="#000000"
-        android:textSize="26sp"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
     <Button
@@ -30,7 +30,7 @@
         android:gravity="start|center_vertical"
         android:paddingLeft="20dp"
         android:text="@string/a"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_notice"
@@ -44,7 +44,7 @@
         android:gravity="start|center_vertical"
         android:paddingLeft="20dp"
         android:text="@string/b"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/txt_question"
@@ -58,7 +58,7 @@
         android:gravity="start|center_vertical"
         android:paddingLeft="20dp"
         android:text="@string/c"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/txt_version"
@@ -72,6 +72,6 @@
         android:gravity="start|center_vertical"
         android:paddingLeft="20dp"
         android:text="@string/d"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
 </LinearLayout>

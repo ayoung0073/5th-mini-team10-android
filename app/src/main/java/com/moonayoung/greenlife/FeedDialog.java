@@ -48,9 +48,16 @@ public class FeedDialog {
         // 커스텀 다이얼로그의 각 위젯들을 정의한다.
         TextView nicknameText = (TextView) dlg.findViewById(R.id.feed_nickName);
         ImageView feedImage = (ImageView) dlg.findViewById(R.id.feed_imageView);
+        ImageView backbtn = (ImageView)dlg.findViewById(R.id.backbtn);
 
         nicknameText.setText(nickName+"님의 챌린지");
         Glide.with(context).load(imageUrl).into(feedImage);
-
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 커스텀 다이얼로그를 종료한다.
+                dlg.dismiss();
+            }
+        });
     }
 }
