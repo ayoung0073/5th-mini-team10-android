@@ -3,9 +3,5 @@
 
         <corners android:radius="20dp"/> <!-- 모서리 기울기 -->
         <solid android:color="#FFFFFF"/><!-- 배경색 -->
-        <padding
-            android:bottom="8dp"
-            android:left="8dp"
-            android:right="6dp"
-            android:top="8dp" />
+
     </shape>

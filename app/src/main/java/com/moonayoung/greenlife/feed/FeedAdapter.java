@@ -11,11 +11,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.moonayoung.greenlife.CustomDialog;
+import com.moonayoung.greenlife.FeedDialog;
 import com.moonayoung.greenlife.R;
+import com.moonayoung.greenlife.api.Feed;
 import com.moonayoung.greenlife.api.FeedItems;
+import com.moonayoung.greenlife.api.Participate;
+import com.moonayoung.greenlife.api.RetrofitClient;
+import com.moonayoung.greenlife.intro.LoginFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
@@ -23,6 +33,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     onFeedListClickListener listener;
     List<FeedItems> items;
     Context rootFragment; //상위 프래그먼트의 문맥 얻어옴(Glide 사용하기 위해)
+
 
     public FeedAdapter(Context rootFragment) {
         this.rootFragment = rootFragment;
@@ -82,12 +93,21 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             });
         }
 
-        public void setItem(FeedItems item) {
+        public void setItem(final FeedItems item) {
             String httpAddress = "http://133.186.241.35:80/";
-            String imageUrl = httpAddress + item.getImageUrl();
+            final String imageUrl = httpAddress + item.getImageUrl();
+            final String nickName = item.getUser().getNickname();
             Log.d("이미지", "" + imageUrl);
             Glide.with(rootFragment).load(imageUrl).into(feedImage);
+            feedImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
+                    //커스텀 다이얼로그 사용용
+                    FeedDialog customDialog = new FeedDialog(rootFragment, imageUrl, nickName);
+                    customDialog.callFunction();
+                }
+            });
         }
     }
 
