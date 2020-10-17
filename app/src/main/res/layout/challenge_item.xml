@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="30dp"
     android:orientation="vertical"
-    android:visibility="visible"
-    android:layout_marginBottom="30dp">
+    android:visibility="visible">
 
 
     <FrameLayout
@@ -26,23 +26,25 @@
 
             <TextView
                 android:id="@+id/challenge_textView"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:layout_marginTop="90dp"
-                android:fontFamily="@font/notosanscjkkrregular"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/notosanscjkkrbold"
                 android:gravity="center"
+                android:textAlignment="viewStart"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/challenge_imageView"
-                tools:ignore="MissingConstraints" />
+                app:layout_constraintTop_toTopOf="@+id/challenge_imageView"
+                tools:ignore="MissingConstraints,RtlCompat" />
 
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginBottom="30dp"
                 android:src="@drawable/ptc01"
                 app:layout_constraintBottom_toBottomOf="@+id/challenge_imageView"
